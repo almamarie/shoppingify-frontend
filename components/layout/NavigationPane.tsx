@@ -1,9 +1,11 @@
+import Image from "next/image";
 import React from "react";
+import logo from "../../public/resources/logo.svg";
 
 const NavigationPane: React.FC<{ className: React.ReactNode }> = () => {
   return (
     <div>
-      <h1>Navigation Pane</h1>
+      <Image src={logo} alt="Logo of shoppingify" />
     </div>
   );
 };
