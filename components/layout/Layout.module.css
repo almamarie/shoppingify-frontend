@@ -5,6 +5,13 @@
   grid-template-columns: 6.52% 1fr 27.0139%;
 }
 
+.navigation-pane,
+.flexible-pane,
+.details-pane {
+  height: 100%;
+  overflow: scroll;
+}
+
 .navigation-pane {
   background-color: #fff;
 }

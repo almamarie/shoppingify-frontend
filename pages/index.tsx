@@ -1,10 +1,7 @@
 import Head from "next/head";
-
-import { Inter } from "@next/font/google";
-import styles from "../styles/Home.module.css";
+import AllItems from "../components/all-items/AllItems";
 import Header from "../components/all-items/Header";
-
-const inter = Inter({ subsets: ["latin"] });
+import ItemsList from "../components/all-items/ItemsList";
 
 export default function Home() {
   return (
@@ -15,6 +12,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Header />
+      <AllItems />
     </>
   );
 }

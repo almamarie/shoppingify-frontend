@@ -23,6 +23,11 @@
   padding: 0 0 0 1.939rem;
 }
 
+.search:focus {
+  /* border: 2px solid #f9a109; */
+  outline: 2px solid #f9a109;
+}
+
 .search::placeholder {
   font-size: 1.4rem;
   color: #bdbdbd;

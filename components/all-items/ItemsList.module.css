@@ -1,0 +1,15 @@
+.heading {
+  /* width: 17.5rem; */
+  font-style: normal;
+  font-size: 1.8rem;
+  font-weight: normal;
+  margin-bottom: 1.8rem;
+  margin-top: 4.753rem;
+  line-height: 2.2rem;
+}
+
+.items {
+  display: flex;
+  gap: 1.961rem;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,14 @@
+.name {
+  font-size: 1.6rem;
+  color: #000;
+}
+
+.plus-icon {
+  width: 1.4rem;
+  color: #c1c1c4;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+}
