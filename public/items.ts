@@ -1,4 +1,4 @@
-export const LIST = {
+export const DUMMY_LIST = {
   // TODO: Add pictures and better context for each
   "Fruits and vegetables": [
     {
