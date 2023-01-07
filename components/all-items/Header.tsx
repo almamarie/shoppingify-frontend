@@ -8,6 +8,9 @@ const Header = () => {
         take your
         <br /> shopping list wherever you go
       </h1>
+      
+        <input className={styles.search} type="search" placeholder="search item" />
+      
     </section>
   );
 };
