@@ -21,5 +21,6 @@
 }
 
 .details-pane {
-  background-color: green;
+  position: relative;
+  background-color: transparent;
 }
