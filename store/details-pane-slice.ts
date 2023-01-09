@@ -24,7 +24,13 @@ const detailsPaneSlice = createSlice({
   initialState,
   reducers: {
     setShowing(state, action) {
-      if (!currentShowingStates.find(action.payload)) return;
+      if (
+        !currentShowingStates.find((states) => {
+          return states === action.payload;
+        })
+      ) {
+        return;
+      }
       state.currentShowing = action.payload;
     },
 

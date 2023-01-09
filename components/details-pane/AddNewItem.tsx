@@ -1,20 +1,20 @@
 import {
   ChangeEventHandler,
+  FormEventHandler,
   KeyboardEventHandler,
   MouseEventHandler,
+  useRef,
   useState,
 } from "react";
+import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../store";
+import { detailsPaneActions } from "../../store/details-pane-slice";
 import { DUMMY_LIST } from "../../store/items";
 import Button from "../ui/buttons/Button";
 import styles from "./AddNewItem.module.css";
 
 const DUMMY_CATEGORIES = Object.keys(DUMMY_LIST);
 const AddNewItem = () => {
-  const categoriesStyle = styles["categories-wrapper"]; // `${styles["categories-wrapper"]} ${showCategories ? "" : styles.hide}`;
-  const [currentCategory, setCurrentCategory] = useState("");
-  const categoryChangeHandler: ChangeEventHandler = (event) => {
-    console.log("Category change handler: ", event);
-  };
   //   const [showCategories, setShowCategories] = useState(true);
   //   const categoryRef;
   //   const showCategoriesDiv = () => {
@@ -28,12 +28,26 @@ const AddNewItem = () => {
   //     });
   //   };
 
+  const categoryRef = useRef<HTMLInputElement>(null);
+  const dispatch = useDispatch();
+  const categoriesStyle = styles["categories-wrapper"]; // `${styles["categories-wrapper"]} ${showCategories ? "" : styles.hide}`;
+  const [currentCategory, setCurrentCategory] = useState("");
+  const categoryChangeHandler = () => {
+    const value = categoryRef.current?.value || "";
+    setCurrentCategory(value);
+  };
+
   const selectCategoryHandler: MouseEventHandler = (event) => {
     const category = event.currentTarget.getAttribute("data-value") || "";
     setCurrentCategory(category);
   };
+
+  const formSubmitHandler: FormEventHandler = (event) => {
+    event.preventDefault();
+    dispatch(detailsPaneActions.setShowing("show selected item"));
+  };
   return (
-    <form className={styles.wrapper}>
+    <form className={styles.wrapper} onSubmit={formSubmitHandler}>
       <h3 className={styles.heading}>Add a new item</h3>
       <div className={styles["entry-wrapper"]}>
         <label htmlFor="name" className={styles.label}>
@@ -85,8 +99,8 @@ const AddNewItem = () => {
           type="text"
           placeholder="select a category"
           value={currentCategory}
+          ref={categoryRef}
           onChange={categoryChangeHandler}
-          //   TODO: Check on how to tell when an input is active and when it is not
           //   onFocus={showCategoriesDiv}
           //   onBlur={removeCategoriesDiv}
         />
