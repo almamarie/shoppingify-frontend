@@ -1,0 +1,38 @@
+.button {
+  padding: 2.062rem 2.517rem;
+  border-radius: 12px;
+  border: none;
+  color: #fff;
+}
+
+.cancel {
+  background-color: transparent;
+  color: #34333a;
+}
+
+.cancel:hover {
+  /* TODO: find color for Hover */
+}
+
+.submit {
+  background-color: #f9a109;
+}
+
+.submit:hover {
+  /* TODO: find color for Hover */
+}
+
+.delete {
+  background-color: #eb5757;
+}
+
+.delete:hover {
+  /* TODO: find color for Hover */
+}
+
+.complete {
+  background-color: #56ccf2;
+}
+.complete:hover {
+  /* TODO: find color for Hover */
+}

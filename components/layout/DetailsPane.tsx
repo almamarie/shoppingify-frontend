@@ -2,10 +2,10 @@ import { useState } from "react";
 import AddNewItem from "../details-pane/AddNewItem";
 import CurrentCart from "../details-pane/CurrentCart";
 import ItemDetails from "../details-pane/ItemDetails";
-import styles from "./DetailsPane.module.css"
+import styles from "./DetailsPane.module.css";
 
 const DetailsPane = () => {
-  const [currentShowing, setCurrentShowing] = useState("");
+  const [currentShowing, setCurrentShowing] = useState("add new item");
 
   if (currentShowing === "add new item") {
     return <AddNewItem />;
