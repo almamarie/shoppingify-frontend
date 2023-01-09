@@ -7,13 +7,21 @@ const currentShowingStates = [
   "show current cart",
 ];
 
+interface DetailsPaneState {
+  currentShowing: string;
+  cartId: string;
+  itemId: string;
+}
+
+const initialState: DetailsPaneState = {
+  currentShowing: "add new item",
+  cartId: "001",
+  itemId: "001",
+};
+
 const detailsPaneSlice = createSlice({
   name: "detailsPane",
-  initialState: {
-    currentShowing: "show current cart",
-    cartId: "",
-    itemId: "",
-  },
+  initialState,
   reducers: {
     setShowing(state, action) {
       if (!currentShowingStates.find(action.payload)) return;
@@ -44,5 +52,11 @@ const detailsPaneSlice = createSlice({
   },
 });
 
-export const detailsPaneActions = detailsPaneSlice.actions;
+// export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+
+// Other code such as selectors can use the imported `RootState` type
+// export const selectCount = (state: RootState) => state.counter.value;
+
 export default detailsPaneSlice;
+
+export const detailsPaneActions = detailsPaneSlice.actions;

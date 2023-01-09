@@ -1,14 +1,37 @@
-import { useState } from "react";
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  useState,
+} from "react";
 import { DUMMY_LIST } from "../../store/items";
 import Button from "../ui/buttons/Button";
 import styles from "./AddNewItem.module.css";
 
 const DUMMY_CATEGORIES = Object.keys(DUMMY_LIST);
 const AddNewItem = () => {
-  const [showCategories, setShowCategories] = useState(false);
-  const categoriesStyle = `${styles["categories-wrapper"]} ${
-    showCategories ? "" : styles.hide
-  }`;
+  const categoriesStyle = styles["categories-wrapper"]; // `${styles["categories-wrapper"]} ${showCategories ? "" : styles.hide}`;
+  const [currentCategory, setCurrentCategory] = useState("");
+  const categoryChangeHandler: ChangeEventHandler = (event) => {
+    console.log("Category change handler: ", event);
+  };
+  //   const [showCategories, setShowCategories] = useState(true);
+  //   const categoryRef;
+  //   const showCategoriesDiv = () => {
+  //     setShowCategories((prev) => {
+  //       return true;
+  //     });
+  //   };
+  //   const removeCategoriesDiv = () => {
+  //     setShowCategories((prev) => {
+  //       return false;
+  //     });
+  //   };
+
+  const selectCategoryHandler: MouseEventHandler = (event) => {
+    const category = event.currentTarget.getAttribute("data-value") || "";
+    setCurrentCategory(category);
+  };
   return (
     <form className={styles.wrapper}>
       <h3 className={styles.heading}>Add a new item</h3>
@@ -61,20 +84,34 @@ const AddNewItem = () => {
           className={styles.input}
           type="text"
           placeholder="select a category"
+          value={currentCategory}
+          onChange={categoryChangeHandler}
           //   TODO: Check on how to tell when an input is active and when it is not
-          onClick={() => {
-            setShowCategories(true);
-          }}
+          //   onFocus={showCategoriesDiv}
+          //   onBlur={removeCategoriesDiv}
         />
       </div>
-      <div className={categoriesStyle}>
-        {DUMMY_CATEGORIES.map((category) => {
-          return (
-            <p key={category} className={styles.category}>
-              {category}
-            </p>
-          );
-        })}
+      <div
+        className={categoriesStyle}
+        // onFocus={showCategoriesDiv}
+        // onBlur={removeCategoriesDiv}
+      >
+        <ul>
+          {DUMMY_CATEGORIES.map((category) => {
+            return (
+              <li
+                //   onFocus={showCategoriesDiv}
+                //   onBlur={removeCategoriesDiv}
+                onClick={selectCategoryHandler}
+                key={category}
+                className={styles.category}
+                data-value={category}
+              >
+                {category}
+              </li>
+            );
+          })}
+        </ul>
       </div>
       <div className={styles.buttons}>
         <Button type="button" category="cancel">

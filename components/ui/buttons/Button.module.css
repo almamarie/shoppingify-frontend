@@ -5,13 +5,20 @@
   color: #fff;
 }
 
+.cancel:active,
+.submit:active,
+.delete:active,
+.delete:active {
+  transform: translateY(2px);
+}
+
 .cancel {
   background-color: transparent;
   color: #34333a;
 }
 
 .cancel:hover {
-  /* TODO: find color for Hover */
+  background-color: #e6e6e6;
 }
 
 .submit {
@@ -19,7 +26,7 @@
 }
 
 .submit:hover {
-  /* TODO: find color for Hover */
+  background-color: #e09108;
 }
 
 .delete {
@@ -27,12 +34,12 @@
 }
 
 .delete:hover {
-  /* TODO: find color for Hover */
+  background-color: #d44e4e;
 }
 
 .complete {
   background-color: #56ccf2;
 }
 .complete:hover {
-  /* TODO: find color for Hover */
+  background-color: #4db8da;
 }

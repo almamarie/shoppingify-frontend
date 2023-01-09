@@ -3,15 +3,18 @@ import AddNewItem from "../details-pane/AddNewItem";
 import CurrentCart from "../details-pane/CurrentCart";
 import ItemDetails from "../details-pane/ItemDetails";
 import styles from "./DetailsPane.module.css";
+import { RootState, useAppSelector } from "../../store";
 
 const DetailsPane = () => {
-  const [currentShowing, setCurrentShowing] = useState("add new item");
+  const currentShowing = useAppSelector((state: RootState) => {
+    return state.detailsPane.currentShowing;
+  });
 
   if (currentShowing === "add new item") {
     return <AddNewItem />;
   }
 
-  if (currentShowing === "show current item") {
+  if (currentShowing === "show selected item") {
     return <ItemDetails />;
   }
 
