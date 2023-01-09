@@ -2,17 +2,17 @@ import { DUMMY_LIST } from "../../store/category-list";
 import styles from "./AllItems.module.css";
 import ItemsList from "./ItemsList";
 
-const DUMMY_ITEMS = DUMMY_LIST;
+const DUMMY_CATEGORIES = DUMMY_LIST;
 const AllItems = () => {
   return (
     <section>
-      {Object.keys(DUMMY_ITEMS).map((item) => {
+      {Object.keys(DUMMY_CATEGORIES).map((item) => {
         console.log(item);
         return (
           <ItemsList
             key={item}
             category={item}
-            items={DUMMY_ITEMS["Fruits and vegetables"]}
+            items={DUMMY_CATEGORIES[item as keyof typeof DUMMY_CATEGORIES]}
           />
         );
       })}
