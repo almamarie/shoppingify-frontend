@@ -6,7 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../../store";
 import { detailsPaneActions } from "../../store/details-pane-slice";
 import { DUMMY_LIST } from "../../store/items";
@@ -29,7 +29,7 @@ const AddNewItem = () => {
   //   };
 
   const categoryRef = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const categoriesStyle = styles["categories-wrapper"]; // `${styles["categories-wrapper"]} ${showCategories ? "" : styles.hide}`;
   const [currentCategory, setCurrentCategory] = useState("");
   const categoryChangeHandler = () => {
