@@ -3,8 +3,6 @@ import styles from "./ItemsList.module.css";
 
 type Item = {
   name: string;
-  notes: string;
-  image: string;
 };
 const ItemsList: React.FC<{ category: string; items: Item[] }> = (props) => {
   const generateItems = () => {
