@@ -1,4 +1,4 @@
-import { DUMMY_LIST } from "../../store/items";
+import { DUMMY_LIST } from "../../store/category-list";
 import styles from "./AllItems.module.css";
 import ItemsList from "./ItemsList";
 

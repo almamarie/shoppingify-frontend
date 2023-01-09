@@ -8,12 +8,11 @@ import {
 } from "react";
 // import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../../store";
+import { DUMMY_CATEGORIES } from "../../store/category-list";
 import { detailsPaneActions } from "../../store/details-pane-slice";
-import { DUMMY_LIST } from "../../store/items";
 import Button from "../ui/buttons/Button";
 import styles from "./AddNewItem.module.css";
 
-const DUMMY_CATEGORIES = Object.keys(DUMMY_LIST);
 const AddNewItem = () => {
   //   const [showCategories, setShowCategories] = useState(true);
   //   const categoryRef;
