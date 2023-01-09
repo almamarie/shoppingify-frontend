@@ -4,6 +4,10 @@ export type Item = {
   image: string;
 };
 
+export type CategoriesType = {
+  name: string;
+}[];
+
 export type DetailsPaneSliceType = {
   showing: string;
   cartId: string;
