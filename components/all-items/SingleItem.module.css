@@ -6,6 +6,12 @@
 .plus-icon {
   width: 1.4rem;
   color: #c1c1c4;
+  transition: all 0.1s;
+}
+
+.plus-icon:hover {
+  transform: scale(1.5);
+  color: #56565789;
 }
 
 .card {
