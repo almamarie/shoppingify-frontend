@@ -10,9 +10,10 @@ const CurrentItemDetails = () => {
   const itemId = useAppSelector((state) => {
     return state.detailsPane.itemId;
   });
+  console.log("Current item: ", itemId);
   // get id from database
   const itemDetails = DUMMY_ITEMS.find((item) => {
-    return item.name.toLowerCase() === itemId;
+    return item.name.toLowerCase() === itemId.toLowerCase();
   });
 
   console.log(itemDetails);
@@ -48,17 +49,17 @@ const CurrentItemDetails = () => {
       </div>
 
       <div className={styles.detail}>
-        <h3>{itemDetails.name}</h3>
-        <p>Avocado</p>
+        <h3>name</h3>
+        <p>{itemDetails.name}</p>
       </div>
 
       <div className={styles.detail}>
-        <h3>Category</h3>
+        <h3>category</h3>
         <p>{itemDetails.category}</p>
       </div>
 
       <div className={styles.detail}>
-        <h3>Note</h3>
+        <h3>note</h3>
         <p>{itemDetails.notes}</p>
       </div>
       <div className={styles.buttons}>
