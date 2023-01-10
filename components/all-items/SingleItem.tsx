@@ -1,9 +1,17 @@
 import styles from "./SingleItem.module.css";
-import { Item } from "../../public/utils/types";
+
 import SingleItemCard from "../ui/cart/SingleItemCard";
+import { useAppDispatch } from "../../store";
+type Item = { name: string };
 const SingleItem: React.FC<{ item: Item }> = (props) => {
+  const dispatch = useAppDispatch();
+
   return (
-    <SingleItemCard>
+    <SingleItemCard
+    // onClickHandler={() => {
+    //   dispatch();
+    // }}
+    >
       <div className={styles.card}>
         <p className={styles.name}>{props.item.name}</p>
         <svg

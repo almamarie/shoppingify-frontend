@@ -14,9 +14,9 @@ interface DetailsPaneState {
 }
 
 const initialState: DetailsPaneState = {
-  currentShowing: "add new item",
+  currentShowing: "show selected item",
   cartId: "001",
-  itemId: "001",
+  itemId: "banana",
 };
 
 const detailsPaneSlice = createSlice({

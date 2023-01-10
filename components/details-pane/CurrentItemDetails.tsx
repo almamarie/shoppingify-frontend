@@ -3,7 +3,7 @@
 import { useAppSelector } from "../../store";
 import { DUMMY_ITEMS } from "../../store/items";
 import Button from "../ui/buttons/Button";
-import styles from "./ItemDetails.module.css";
+import styles from "./CurrentItemDetails.module.css";
 
 const CurrentItemDetails = () => {
   // fetch item id from store
