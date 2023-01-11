@@ -7,7 +7,6 @@ const AllItems = () => {
   return (
     <section>
       {Object.keys(DUMMY_CATEGORIES).map((item) => {
-        console.log(item);
         return (
           <ItemsList
             key={item}

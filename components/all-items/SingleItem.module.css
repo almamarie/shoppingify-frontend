@@ -1,20 +1,38 @@
+.card {
+  padding: 1.3rem 1.6rem 1.7rem 1.6rem;
+  background-color: #fff;
+
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  width: 18.2rem;
+
+  position: relative;
+}
+
+.card:hover {
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
+}
+
 .name {
   font-size: 1.6rem;
   color: #000;
+  max-width: 90%;
 }
 
 .plus-icon {
   width: 1.4rem;
   color: #c1c1c4;
   transition: all 0.1s;
+
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .plus-icon:hover {
-  transform: scale(1.5);
-  color: #56565789;
-}
-
-.card {
-  display: flex;
-  justify-content: space-between;
+  color: green;
+  width: 1.8rem;
+  /* TODO: Read more about rotate */
+  /* transform: rotate(90); */
 }

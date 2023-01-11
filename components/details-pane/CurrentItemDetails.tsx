@@ -10,13 +10,11 @@ const CurrentItemDetails = () => {
   const itemId = useAppSelector((state) => {
     return state.detailsPane.itemId;
   });
-  console.log("Current item: ", itemId);
+
   // get id from database
   const itemDetails = DUMMY_ITEMS.find((item) => {
     return item.name.toLowerCase() === itemId.toLowerCase();
   });
-
-  console.log(itemDetails);
 
   if (!itemDetails) {
     return <p className={styles["item-not-found"]}>Item not found</p>;

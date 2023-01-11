@@ -9,7 +9,7 @@ export const DUMMY_LIST =
         name: "Banana",
       },
       {
-        name: "Bunch of sarrots 5pcs",
+        name: "Bunch of carrots 5pcs",
       },
       {
         name: "Chicken 1kg",

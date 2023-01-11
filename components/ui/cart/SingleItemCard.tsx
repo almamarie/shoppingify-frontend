@@ -8,11 +8,11 @@ const SingleItemCard: React.FC<{
   itemId: string;
 }> = (props) => {
   const dispatch = useAppDispatch();
-  function onClickHandler() {
+  function setSelectedHandler() {
     dispatch(detailsPaneActions.setItemId(props.itemId));
   }
   return (
-    <div onClick={onClickHandler} className={styles.card}>
+    <div onClick={setSelectedHandler} className={styles.card}>
       {props.children}
     </div>
   );
