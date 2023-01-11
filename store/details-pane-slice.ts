@@ -14,7 +14,6 @@ interface History {
 
 interface DetailsPaneState {
   currentShowing: string;
-  cartId: string;
   itemId: string;
   history: History[];
   currentHistoryLocation: number;
@@ -22,7 +21,6 @@ interface DetailsPaneState {
 
 const initialState: DetailsPaneState = {
   currentShowing: "show current cart",
-  cartId: "001",
   itemId: "watermelon",
   history: [{ actionType: "show current cart", value: "" }],
   currentHistoryLocation: -1,
@@ -44,19 +42,6 @@ const detailsPaneSlice = createSlice({
 
       // // update history
       // const history: History = { actionType: action.payload, value: null };
-      // state.history = [...state.history, history];
-    },
-
-    setCurrentCart(state, action) {
-      // sets the current cart and the currentShowing flag
-      state.cartId = action.payload;
-      state.currentShowing = "show current cart";
-
-      // // update history
-      // const history: History = {
-      //   actionType: "show current cart",
-      //   value: action.payload,
-      // };
       // state.history = [...state.history, history];
     },
 
@@ -87,10 +72,6 @@ const detailsPaneSlice = createSlice({
 
       // update the store with the last history
       state.currentShowing = lastHistory.actionType;
-
-      if (lastHistory.actionType === "show current cart") {
-        state.cartId = lastHistory.value;
-      }
 
       if (lastHistory.actionType === "show selected item") {
         state.itemId = lastHistory.value;

@@ -12,17 +12,24 @@ export type ExpectedAddItemToCartFormat = {
 type InitialState = {
   items: Category[];
   totalQuantity: number;
+  cartId: string;
 };
 
 const initialState: InitialState = {
   items: [],
   totalQuantity: 0,
+  cartId: "001",
 };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    setCartId(state, action) {
+      // sets the current cart and the currentShowing flag
+      state.cartId = action.payload;
+    },
+
     addItem(state, action) {
       //   console.log("Received: ", {
       //     itemId: action.payload.itemId,
