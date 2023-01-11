@@ -28,11 +28,12 @@
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
+
+ 
 }
 
 .plus-icon:hover {
   color: green;
   width: 1.8rem;
-  /* TODO: Read more about rotate */
-  /* transform: rotate(90); */
+  
 }
