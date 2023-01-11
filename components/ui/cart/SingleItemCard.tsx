@@ -9,7 +9,7 @@ const SingleItemCard: React.FC<{
 }> = (props) => {
   const dispatch = useAppDispatch();
   function setSelectedHandler() {
-    dispatch(detailsPaneActions.setItemId(props.itemId));
+    dispatch(detailsPaneActions.setCurrentItem(props.itemId));
   }
   return (
     <div onClick={setSelectedHandler} className={styles.card}>

@@ -19,7 +19,7 @@ const SingleItem: React.FC<{ item: Item }> = (props) => {
   };
 
   function setSelectedHandler() {
-    dispatch(detailsPaneActions.setItemId(props.item.name));
+    dispatch(detailsPaneActions.setCurrentItem(props.item.name));
   }
 
   return (

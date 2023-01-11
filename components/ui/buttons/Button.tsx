@@ -2,8 +2,10 @@ import React from "react";
 import styles from "./Button.module.css";
 
 const Button: React.FC<{
-  type: "button" | "submit" ;
+  type: "button" | "submit";
   category: "complete" | "delete" | "submit" | "cancel";
+  // TODO: Research on how to add default values react props
+  // onClick: () => {};
   children: React.ReactNode;
 }> = (props) => {
   return (

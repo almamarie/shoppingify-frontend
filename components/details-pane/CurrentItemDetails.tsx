@@ -1,11 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { useAppSelector } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { detailsPaneActions } from "../../store/details-pane-slice";
 import { DUMMY_ITEMS } from "../../store/items";
 import Button from "../ui/buttons/Button";
 import styles from "./CurrentItemDetails.module.css";
 
 const CurrentItemDetails = () => {
+  const dispatch = useAppDispatch();
+  const goBackHandler = () => {
+    dispatch(detailsPaneActions.historyPop());
+  };
   // fetch item id from store
   const itemId = useAppSelector((state) => {
     return state.detailsPane.itemId;
@@ -21,7 +26,7 @@ const CurrentItemDetails = () => {
   }
   return (
     <div className={styles.wrapper}>
-      <div className={styles.back}>
+      <div className={styles.back} onClick={goBackHandler}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
