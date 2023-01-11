@@ -67,6 +67,13 @@
   width: 100%;
   border: none;
   padding-left: 1.763rem;
+  outline: none;
+}
+
+.input-wrapper input:active,
+.input-wrapper input:focus {
+  outline: none;
+  border: none;
 }
 
 .input-wrapper input::placeholder {
