@@ -9,13 +9,13 @@ const SingleItem: React.FC<{ item: Item }> = (props) => {
   const dispatch = useAppDispatch();
 
   const addItemToCartHandler = () => {
-    console.log("adding item to database");
+    // console.log("adding item to database");
     const result = addItemToCart(dispatch, props.item.name, false);
     if (!result) {
       console.log("error");
       return;
     }
-    console.log("Item added successfully");
+    // console.log("Item added successfully");
   };
 
   function setSelectedHandler() {

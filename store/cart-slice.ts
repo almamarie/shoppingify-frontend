@@ -24,22 +24,22 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, action) {
-      console.log("Received: ", {
-        itemId: action.payload.itemId,
-        category: action.payload.categoryName,
-        quantity: action.payload.quantity,
-      });
+      //   console.log("Received: ", {
+      //     itemId: action.payload.itemId,
+      //     category: action.payload.categoryName,
+      //     quantity: action.payload.quantity,
+      //   });
       //   check if all required valus are included
       if (
         !action.payload.itemId ||
         !action.payload.categoryName ||
         !action.payload.quantity
       ) {
-        console.log("not all data provided");
+        // console.log("not all data provided");
         return;
       }
 
-      console.log("here");
+      //   console.log("here");
 
       // check if the category is in state
       const category = state.items.findIndex((item) => {
@@ -51,7 +51,7 @@ const cartSlice = createSlice({
 
       // if category is not in items, add it and add the item to it
       if (category === -1) {
-        console.log("category not found: ", category);
+        // console.log("category not found: ", category);
         const entry: Category = {
           categoryName: action.payload.categoryName,
           items: [
@@ -70,12 +70,12 @@ const cartSlice = createSlice({
         return;
       }
 
-      console.log("category found: ", category);
+      //   console.log("category found: ", category);
       // check if item is in category
       const item = state.items[category].items.findIndex((item) => {
-        console.log(
-          `${item.itemId.toLowerCase()} === ${action.payload.itemId.toLowerCase()}`
-        );
+        // console.log(
+        //   `${item.itemId.toLowerCase()} === ${action.payload.itemId.toLowerCase()}`
+        // );
         return (
           item.itemId.toLowerCase() === action.payload.itemId.toLowerCase()
         );
@@ -84,7 +84,7 @@ const cartSlice = createSlice({
       // if item is not in category, add it
 
       if (item === -1) {
-        console.log("item not found: ", item);
+        // console.log("item not found: ", item);
         const newItem: Item = {
           itemId: action.payload.itemId,
           quantity: action.payload.quantity,
@@ -94,10 +94,10 @@ const cartSlice = createSlice({
         return;
       } else {
         // if item is in category, update it
-        console.log("item found: ", item);
+        // console.log("item found: ", item);
 
-        console.log(`${state.items[category].items[item].quantity} =
-        ${state.items[category].items[item].quantity} + ${action.payload.quantity};`);
+        // console.log(`${state.items[category].items[item].quantity} =
+        // ${state.items[category].items[item].quantity} + ${action.payload.quantity};`);
         state.items[category].items[item].quantity =
           state.items[category].items[item].quantity + action.payload.quantity;
       }
