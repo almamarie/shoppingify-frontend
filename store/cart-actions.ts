@@ -1,4 +1,4 @@
-import { createActions } from "./cart-slice";
+import { cartActions, CartSliceCategory, CartSliceItem } from "./cart-slice";
 import { DUMMY_ITEMS } from "./items";
 import { ExpectedAddItemToCartFormat } from "./cart-slice";
 import { useAppDispatch } from ".";
@@ -7,13 +7,11 @@ import { useAppDispatch } from ".";
 export function addItemToCart(
   dispatch: any,
   itemId: string,
-  quantity: number | false
+  quantity: number | false = false
 ) {
-  //   console.log({ dispatch: dispatch, itemId: itemId, quantity: quantity });
   try {
     // fetch item from database
     const item = DUMMY_ITEMS.find((item) => {
-      //   console.log(`${item.name.toLowerCase()} === ${itemId}`);
       return item.name.toLowerCase() === itemId.toLowerCase();
     });
 
@@ -30,12 +28,28 @@ export function addItemToCart(
       quantity: quantity || 1,
     };
 
-    dispatch(createActions.addItem(cartItemDetails));
+    dispatch(cartActions.addItem(cartItemDetails));
     return true;
   } catch (error) {
-    // console.error(error);
     return false;
   }
 }
 
-
+export function decreaseItemInCart(
+  dispatch: any,
+  itemId: string,
+  category: string
+) {
+  console.log("decrease item");
+  try {
+    dispatch(
+      cartActions.decreaseItem({
+        itemId,
+        categoryName: category,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}

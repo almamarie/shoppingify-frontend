@@ -9,8 +9,8 @@ import Footer from "./Footer";
 const CurrentCart = () => {
   const dispatch = useAppDispatch();
   // fetch cart id from store
-  const [cartId, cartTitle, cartItems] = useAppSelector((state) => {
-    return [state.cart.cartId, state.cart.cartTitle, state.cart.items];
+  const [totalQuantity, cartTitle, cartItems] = useAppSelector((state) => {
+    return [state.cart.totalQuantity, state.cart.cartTitle, state.cart.items];
   });
   const [cartState, setCartState] = useState("editing");
 
@@ -20,12 +20,13 @@ const CurrentCart = () => {
 
   function generateEditingItems() {
     return cartItems.map((category, index) => {
+      console.log("items category: ", category);
       return <CartCategory key={index} category={category} />;
     });
   }
 
   function generateCart() {
-    if (cartItems.length === 0) {
+    if (cartItems.length === 0 || totalQuantity === 0) {
       return <EmptyCart />;
     }
 

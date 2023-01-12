@@ -12,11 +12,15 @@
 
 .quantity {
   height: 3.2rem;
-  /* width: 9rem; */
+  width: 8.1rem;
   padding: 0.5rem 2.05rem;
   font-size: 1.2rem;
   border: 2px solid #f9a109;
   border-radius: 24px;
+
+  /* truncate text */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .icons-wrapper {
@@ -37,8 +41,15 @@
 }
 
 .increase:hover,
-.decrease:hover {
+.decrease:hover,
+.bin:hover {
   transform: scale(1.5);
+}
+
+.increase:active,
+.decrease:active,
+.bin:active {
+  transform: scale(1);
 }
 
 .bin-wrapper {

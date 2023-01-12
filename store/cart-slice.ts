@@ -36,22 +36,9 @@ const cartSlice = createSlice({
     },
 
     addItem(state, action) {
-      //   console.log("Received: ", {
-      //     itemId: action.payload.itemId,
-      //     category: action.payload.categoryName,
-      //     quantity: action.payload.quantity,
-      //   });
-      //   check if all required valus are included
-      if (
-        !action.payload.itemId ||
-        !action.payload.categoryName ||
-        !action.payload.quantity
-      ) {
-        // console.log("not all data provided");
+      if (!action.payload.itemId || !action.payload.categoryName) {
         return;
       }
-
-      //   console.log("here");
 
       // check if the category is in state
       const category = state.items.findIndex((item) => {
@@ -63,13 +50,12 @@ const cartSlice = createSlice({
 
       // if category is not in items, add it and add the item to it
       if (category === -1) {
-        // console.log("category not found: ", category);
         const entry: CartSliceCategory = {
           categoryName: action.payload.categoryName,
           items: [
             {
               itemId: action.payload.itemId,
-              quantity: action.payload.quantity,
+              quantity: 1,
             },
           ],
         };
@@ -78,16 +64,12 @@ const cartSlice = createSlice({
         // TODO: updating state items does not allows add to the previous item.
         // in state, to solve this, u always use a function (prev)=>{}.
         // find out how to do that here
-        state.totalQuantity = state.totalQuantity + action.payload.quantity;
+        state.totalQuantity = state.totalQuantity + 1;
         return;
       }
 
-      //   console.log("category found: ", category);
       // check if item is in category
       const item = state.items[category].items.findIndex((item) => {
-        // console.log(
-        //   `${item.itemId.toLowerCase()} === ${action.payload.itemId.toLowerCase()}`
-        // );
         return (
           item.itemId.toLowerCase() === action.payload.itemId.toLowerCase()
         );
@@ -96,30 +78,92 @@ const cartSlice = createSlice({
       // if item is not in category, add it
 
       if (item === -1) {
-        // console.log("item not found: ", item);
         const newItem: CartSliceItem = {
           itemId: action.payload.itemId,
-          quantity: action.payload.quantity,
+          quantity: 1,
         };
         state.items[category].items = [...state.items[category].items, newItem];
 
         return;
       } else {
         // if item is in category, update it
-        // console.log("item found: ", item);
-
-        // console.log(`${state.items[category].items[item].quantity} =
-        // ${state.items[category].items[item].quantity} + ${action.payload.quantity};`);
         state.items[category].items[item].quantity =
-          state.items[category].items[item].quantity + action.payload.quantity;
+          state.items[category].items[item].quantity + 1;
       }
 
       // update the totalQuantity Field
-      state.totalQuantity = state.totalQuantity + action.payload.quantity;
+      state.totalQuantity = state.totalQuantity + 1;
+    },
+
+    decreaseItem(state, action) {
+      // Decreases the quantity of the item in the cart
+      // expects the itemId and category
+      if (!action.payload.itemId || !action.payload.categoryName) {
+        return;
+      }
+
+      // check if the category is in state
+      const category = state.items.findIndex((item) => {
+        return (
+          item.categoryName.toLowerCase() ===
+          action.payload.categoryName.toLowerCase()
+        );
+      });
+
+      // if category is not in items
+      if (category === -1) {
+        return;
+      }
+
+      // find item
+
+      // check if item is in category
+      const item = state.items[category].items.findIndex((item) => {
+        return (
+          item.itemId.toLowerCase() === action.payload.itemId.toLowerCase()
+        );
+      });
+
+      // if item is not in category
+
+      if (item === -1) {
+        return;
+      }
+
+      // if item is in category, update it
+      if (state.items[category].items[item].quantity === 1) {
+        // check if item quanty is 1, remove the item from the items
+        state.items[category].items = state.items[category].items.filter(
+          (item) => {
+            return (
+              item.itemId.toLowerCase() !== action.payload.itemId.toLowerCase()
+            );
+          }
+        );
+
+        // check if category is empty and remove it.
+        console.log(`State item: ${state.items[category].items.length}`);
+        if (state.items[category].items.length === 0) {
+          const tmpItems = state.items;
+          tmpItems.splice(category, 1);
+          state.items = tmpItems;
+        }
+
+        // update the total quantity
+        state.totalQuantity = state.totalQuantity - 1;
+
+        return;
+      }
+      // remove 1 from it
+      state.items[category].items[item].quantity =
+        state.items[category].items[item].quantity - 1;
+
+      // update the total quantity
+      state.totalQuantity = state.totalQuantity - 1;
     },
   },
 });
 
 export default cartSlice;
 
-export const createActions = cartSlice.actions;
+export const cartActions = cartSlice.actions;

@@ -5,7 +5,13 @@ import CartItem from "./CarItem";
 const CartCategory: React.FC<{ category: CartSliceCategory }> = (props) => {
   function generateItems() {
     return props.category.items.map((item, index) => {
-      return <CartItem key={index} item={item} />;
+      return (
+        <CartItem
+          key={index}
+          category={props.category.categoryName}
+          item={item}
+        />
+      );
     });
   }
   return (

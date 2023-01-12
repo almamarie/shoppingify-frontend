@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { detailsPaneActions } from "../../store/details-pane-slice";
 import styles from "./CartIcon.module.css";
@@ -7,8 +8,27 @@ const CartIcon = () => {
   function showCart() {
     dispatch(detailsPaneActions.setShowing("show current cart"));
   }
+  const [bumpWrapper, setBumpWrapper] = useState(false);
+
+  const wrapperClasses = `${styles.wrapper} ${bumpWrapper ? styles.bump : ""}`;
+
+  useEffect(() => {
+    if (totalItems === 0) {
+      return;
+    }
+    setBumpWrapper(true);
+
+    const timer = setTimeout(() => {
+      setBumpWrapper(false);
+    }, 300);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [totalItems]);
+
   return (
-    <div className={styles.wrapper} onClick={showCart}>
+    <div className={wrapperClasses} onClick={showCart}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
