@@ -83,6 +83,8 @@ const cartSlice = createSlice({
           quantity: 1,
         };
         state.items[category].items = [...state.items[category].items, newItem];
+        // update the total quantities
+        state.totalQuantity = state.totalQuantity + 1;
 
         return;
       } else {
@@ -142,7 +144,7 @@ const cartSlice = createSlice({
         );
 
         // check if category is empty and remove it.
-        console.log(`State item: ${state.items[category].items.length}`);
+        console.log(`State item: ${state.items[category].items}`);
         if (state.items[category].items.length === 0) {
           const tmpItems = state.items;
           tmpItems.splice(category, 1);
