@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>All Items</title>
+        <title>Shopingify - All Items</title>
         <meta name="description" content="All items in the shopping list" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
