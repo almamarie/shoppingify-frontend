@@ -32,6 +32,7 @@
 - [How to use](#how-to-use)
 - [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
+- [Things to Note](#note)
 
 <!-- OVERVIEW -->
 
@@ -68,7 +69,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+$ git clone https://github.com/almamarie/shoppingify-frontend
 
 # Install dependencies
 $ npm install
@@ -84,6 +85,12 @@ $ npm start
 - [Steps to replicate a design with only HTML and CSS](https://devchallenges-blogs.web.app/how-to-replicate-design/)
 - [Node.js](https://nodejs.org/)
 - [Marked - a markdown parser](https://github.com/chjj/marked)
+
+## Note
+
+- I am having problems with importing svgs so I will use them directly when needed
+- For situations where I am forced to use a component for the svg like in the shopping cart icon which is shown when there is no item in the cart, I wrap the component with a div element so i can style it. This is because I am having problems with passing styles in REACT with Typscript.
+- I am having problems with passing className Props with typescript so I will try to ignore it. I have faced this most with the Button Component.
 
 ## Contact
 

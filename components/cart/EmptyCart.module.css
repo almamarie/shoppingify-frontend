@@ -1,0 +1,21 @@
+.wrapper {
+  text-align: center;
+  height: auto;
+  height: 100%;
+  font-size: 2rem;
+  font-weight: 700;
+  padding-top: 22.185;
+  position: relative;
+}
+
+.wrapper h3 {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cart-icon {
+  position: absolute;
+  bottom: 7rem;
+}

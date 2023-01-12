@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 type Item = { itemId: string; quantity: number };
 
-type Category = { categoryName: string; items: Item[] };
+export type Category = { categoryName: string; items: Item[] };
 
 export type ExpectedAddItemToCartFormat = {
   itemId: string;
@@ -13,12 +13,14 @@ type InitialState = {
   items: Category[];
   totalQuantity: number;
   cartId: string;
+  cartTitle: string;
 };
 
 const initialState: InitialState = {
   items: [],
   totalQuantity: 0,
   cartId: "001",
+  cartTitle: "Shopping List",
 };
 
 const cartSlice = createSlice({
