@@ -1,7 +1,7 @@
 import styles from "./CurrentCart.module.css";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { detailsPaneActions } from "../../store/details-pane-slice";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import CartCategory from "./editing-state/CartCategory";
 import EmptyCart from "./EmptyCart";
 import Footer from "./Footer";
@@ -12,12 +12,17 @@ const CurrentCart = () => {
   const [cartId, cartTitle, cartItems] = useAppSelector((state) => {
     return [state.cart.cartId, state.cart.cartTitle, state.cart.items];
   });
+  const [cartState, setCartState] = useState("editing");
 
   const addItemHandler = () => {
     dispatch(detailsPaneActions.setShowing("add new item"));
   };
 
-  const [cartState, setCartState] = useState("editing");
+  function generateEditingItems() {
+    return cartItems.map((category, index) => {
+      return <CartCategory key={index} category={category} />;
+    });
+  }
 
   function generateCart() {
     if (cartItems.length === 0) {
@@ -25,31 +30,28 @@ const CurrentCart = () => {
     }
 
     return (
-      <div className={styles["cart-header"]}>
-        <h3 className={styles["cart-title"]}>{cartTitle}</h3>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className={styles["edit-icon"]}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-          />
-        </svg>
-        {generateEditingItems()}
-      </div>
-    );
+      <Fragment>
+        <div className={styles["cart-header"]}>
+          <h3 className={styles["cart-title"]}>{cartTitle}</h3>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className={styles["edit-icon"]}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+            />
+          </svg>
+        </div>
 
-    function generateEditingItems() {
-      return cartItems.map((category, index) => {
-        return <CartCategory key={index} category={category} />;
-      });
-    }
+        <div className={styles["main-items"]}>{generateEditingItems()}</div>
+      </Fragment>
+    );
   }
   return (
     <div className={styles.wrapper}>

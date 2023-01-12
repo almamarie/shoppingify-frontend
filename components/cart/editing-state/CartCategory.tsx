@@ -1,12 +1,17 @@
-import { useAppSelector } from "../../../store";
 import styles from "./CartCategory.module.css";
-import { Category } from "../../../store/cart-slice";
+import { CartSliceCategory } from "../../../store/cart-slice";
+import CartItem from "./CarItem";
 
-const CartCategory: React.FC<{ category: Category }> = (props) => {
+const CartCategory: React.FC<{ category: CartSliceCategory }> = (props) => {
+  function generateItems() {
+    return props.category.items.map((item, index) => {
+      return <CartItem key={index} item={item} />;
+    });
+  }
   return (
     <div className={styles.wrapper}>
       <h3 className={styles.heading}>{props.category.categoryName}</h3>
-      <ul></ul>
+      <ul className={styles.ul}>{generateItems()}</ul>
     </div>
   );
 };

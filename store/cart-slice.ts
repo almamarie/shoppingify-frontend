@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-type Item = { itemId: string; quantity: number };
+export type CartSliceItem = { itemId: string; quantity: number };
 
-export type Category = { categoryName: string; items: Item[] };
+export type CartSliceCategory = {
+  categoryName: string;
+  items: CartSliceItem[];
+};
 
 export type ExpectedAddItemToCartFormat = {
   itemId: string;
@@ -10,7 +13,7 @@ export type ExpectedAddItemToCartFormat = {
 };
 
 type InitialState = {
-  items: Category[];
+  items: CartSliceCategory[];
   totalQuantity: number;
   cartId: string;
   cartTitle: string;
@@ -61,7 +64,7 @@ const cartSlice = createSlice({
       // if category is not in items, add it and add the item to it
       if (category === -1) {
         // console.log("category not found: ", category);
-        const entry: Category = {
+        const entry: CartSliceCategory = {
           categoryName: action.payload.categoryName,
           items: [
             {
@@ -94,7 +97,7 @@ const cartSlice = createSlice({
 
       if (item === -1) {
         // console.log("item not found: ", item);
-        const newItem: Item = {
+        const newItem: CartSliceItem = {
           itemId: action.payload.itemId,
           quantity: action.payload.quantity,
         };

@@ -51,8 +51,6 @@
   left: 1.527rem;
 }
 
-
-
 .cart-header {
   margin-top: 4.396rem;
   display: flex;
@@ -67,4 +65,9 @@
 .edit-icon {
   width: 1.8rem;
   stroke: #000;
+}
+
+.main-items {
+  overflow: scroll;
+  height: 48.9rem;
 }
