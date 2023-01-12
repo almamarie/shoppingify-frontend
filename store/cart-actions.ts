@@ -1,6 +1,7 @@
 import { createActions } from "./cart-slice";
 import { DUMMY_ITEMS } from "./items";
 import { ExpectedAddItemToCartFormat } from "./cart-slice";
+import { useAppDispatch } from ".";
 
 // TODO: find the type of dispatch
 export function addItemToCart(
@@ -36,3 +37,5 @@ export function addItemToCart(
     return false;
   }
 }
+
+

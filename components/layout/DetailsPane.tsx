@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AddNewItem from "../details-pane/AddNewItem";
-import CurrentCart from "../details-pane/CurrentCart";
+import CurrentCart from "../cart/CurrentCart";
 import ItemDetails from "../details-pane/CurrentItemDetails";
 import styles from "./DetailsPane.module.css";
 import { RootState, useAppSelector } from "../../store";
