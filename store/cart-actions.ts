@@ -53,3 +53,22 @@ export function decreaseItemInCart(
     return false;
   }
 }
+
+export function removeItemFromCart(
+  dispatch: any,
+  itemId: string,
+  category: string
+) {
+  console.log("delete item");
+  try {
+    dispatch(
+      cartActions.removeItemFromCart({
+        itemId,
+        categoryName: category,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}

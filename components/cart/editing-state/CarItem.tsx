@@ -2,7 +2,11 @@ import styles from "./CartItem.module.css";
 import { CartSliceItem } from "../../../store/cart-slice";
 import { useRef, useState } from "react";
 import { useAppDispatch } from "../../../store";
-import { addItemToCart, decreaseItemInCart } from "../../../store/cart-actions";
+import {
+  addItemToCart,
+  decreaseItemInCart,
+  removeItemFromCart,
+} from "../../../store/cart-actions";
 
 const CartItem: React.FC<{ item: CartSliceItem; category: string }> = (
   props
@@ -23,7 +27,7 @@ const CartItem: React.FC<{ item: CartSliceItem; category: string }> = (
   }
 
   function removeItem() {
-    console.log("remove item");
+    removeItemFromCart(dispatch, itemId, props.category);
   }
 
   //   useEffect(() => {
@@ -74,7 +78,6 @@ const CartItem: React.FC<{ item: CartSliceItem; category: string }> = (
             />
           </svg>
           <p className={styles.quantity}>{`${quantity} pcs`}</p>
-         
 
           <svg
             onClick={increaseItem}

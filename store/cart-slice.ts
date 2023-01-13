@@ -17,6 +17,7 @@ type InitialState = {
   totalQuantity: number;
   cartId: string;
   cartTitle: string;
+  cartState: "in progres" | "completed" | "canceled";
 };
 
 const initialState: InitialState = {
@@ -24,6 +25,7 @@ const initialState: InitialState = {
   totalQuantity: 0,
   cartId: "001",
   cartTitle: "Shopping List",
+  cartState: "in progres",
 };
 
 const cartSlice = createSlice({
@@ -162,6 +164,56 @@ const cartSlice = createSlice({
 
       // update the total quantity
       state.totalQuantity = state.totalQuantity - 1;
+    },
+
+    removeItemFromCart(state, action) {
+      // removes item from cart
+      // expects the id
+      if (!action.payload) return;
+
+      // find the item
+      // check if the category is in state
+      const category = state.items.findIndex((item) => {
+        return (
+          item.categoryName.toLowerCase() ===
+          action.payload.categoryName.toLowerCase()
+        );
+      });
+
+      // if category is not in items list
+      if (category === -1) {
+        return;
+      }
+      // check if item is in category
+      const item = state.items[category].items.findIndex((item) => {
+        return (
+          item.itemId.toLowerCase() === action.payload.itemId.toLowerCase()
+        );
+      });
+
+      // if item is not in category
+
+      if (item === -1) {
+        return;
+      }
+
+      // fetch the quantity of the item in the cart
+      const itemQuantity = state.items[category].items[item].quantity;
+
+      //  remove the item
+      const tmpItems = state.items[category].items;
+      tmpItems.splice(item, 1);
+      state.items[category].items = tmpItems;
+
+      // check if category is empty and remove it if it is.
+      if (state.items[category].items.length === 0) {
+        const tmpItems = state.items;
+        tmpItems.splice(category, 1);
+        state.items = tmpItems;
+      }
+
+      // update the total quantity
+      state.totalQuantity = state.totalQuantity - itemQuantity;
     },
   },
 });
