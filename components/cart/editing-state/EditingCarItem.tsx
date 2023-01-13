@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../../store";
 import {
   addItemToCart,
   decreaseItemInCart,
+  increaseItemInCart,
   removeItemFromCart,
 } from "../../../store/cart-actions";
 
@@ -19,7 +20,7 @@ const EditingCartItem: React.FC<{ item: CartSliceItem; category: string }> = (
   function increaseItem() {
     console.log("increase item");
     const tmpQuantity: number = +quantityRef.current?.value!;
-    addItemToCart(dispatch, itemId);
+    increaseItemInCart(dispatch, itemId, props.category);
   }
 
   function decreaseItem() {

@@ -2,17 +2,26 @@ import styles from "./CurrentCart.module.css";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { detailsPaneActions } from "../../store/details-pane-slice";
 import { Fragment, useState } from "react";
-import CartCategory from "./editing-state/EditingCartCategory";
 import EmptyCart from "./EmptyCart";
 import Footer from "./Footer";
+import CompletingCartCategory from "./completing-state/CompletingCartCategory";
+import EditingCartCategory from "./editing-state/EditingCartCategory";
+import { cartActions } from "../../store/cart-slice";
 
 const CurrentCart = () => {
   const dispatch = useAppDispatch();
   // fetch cart id from store
-  const [totalQuantity, cartTitle, cartItems] = useAppSelector((state) => {
-    return [state.cart.totalQuantity, state.cart.cartTitle, state.cart.items];
-  });
-  const [cartState, setCartState] = useState("editing");
+  const [totalQuantity, cartTitle, cartItems, isEditingCart] = useAppSelector(
+    (state) => {
+      return [
+        state.cart.totalQuantity,
+        state.cart.cartTitle,
+        state.cart.items,
+        state.cart.isEditingCart,
+      ];
+    }
+  );
+  const [cartState, setCartState] = useState("");
 
   const addItemHandler = () => {
     dispatch(detailsPaneActions.setShowing("add new item"));
@@ -20,15 +29,18 @@ const CurrentCart = () => {
 
   function generateEditingStateItems() {
     return cartItems.map((category, index) => {
-      console.log("items category: ", category);
-      return <CartCategory key={index} category={category} />;
+      return <EditingCartCategory key={index} category={category} />;
     });
   }
 
   function generateCompletingStateItems() {
     return cartItems.map((category, index) => {
-      return <p key={index}>here</p>;
+      return <CompletingCartCategory key={index} category={category} />;
     });
+  }
+
+  function toggleEditingState() {
+    dispatch(cartActions.toggleIsEditingCart());
   }
 
   function generateCart() {
@@ -36,17 +48,32 @@ const CurrentCart = () => {
       return <EmptyCart />;
     }
 
+    let allCartItems;
+
+    if (isEditingCart) {
+      allCartItems = generateEditingStateItems();
+    }
+
+    if (!isEditingCart) {
+      allCartItems = generateCompletingStateItems();
+    }
+
     return (
       <Fragment>
         <div className={styles["cart-header"]}>
-          <h3 className={styles["cart-title"]}>{cartTitle}</h3>
+          <div className={styles["cart-title-wrapper"]} title={cartTitle}>
+            <h3 className={styles["cart-title"]}>{cartTitle}</h3>
+          </div>
           <svg
+            onClick={toggleEditingState}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={styles["edit-icon"]}
+            className={`${styles["edit-icon"]} ${
+              isEditingCart ? styles["edit-icon-editing"] : ""
+            }`}
           >
             <path
               strokeLinecap="round"
@@ -55,10 +82,7 @@ const CurrentCart = () => {
             />
           </svg>
         </div>
-
-        <div className={styles["main-items"]}>
-          {generateCompletingStateItems()}
-        </div>
+        <div className={styles["main-items"]}>{allCartItems}</div>
       </Fragment>
     );
   }
@@ -97,7 +121,7 @@ const CurrentCart = () => {
         </div>
         <main>{generateCart()}</main>
       </div>
-      <Footer cartState={cartState} />
+      <Footer isEditingCart={isEditingCart} />
     </div>
   );
 };

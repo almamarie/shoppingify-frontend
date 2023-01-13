@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-export type CartSliceItem = { itemId: string; quantity: number };
+export type CartSliceItem = {
+  itemId: string;
+  quantity: number;
+  isCompleted: boolean;
+};
 
 export type CartSliceCategory = {
   categoryName: string;
@@ -17,15 +21,17 @@ type InitialState = {
   totalQuantity: number;
   cartId: string;
   cartTitle: string;
-  cartState: "in progres" | "completed" | "canceled";
+  cartState: "in progress" | "completed" | "canceled";
+  isEditingCart: boolean;
 };
 
 const initialState: InitialState = {
   items: [],
   totalQuantity: 0,
   cartId: "001",
-  cartTitle: "Shopping List",
-  cartState: "in progres",
+  cartTitle: "New Shopping List",
+  cartState: "in progress",
+  isEditingCart: true,
 };
 
 const cartSlice = createSlice({
@@ -37,8 +43,12 @@ const cartSlice = createSlice({
       state.cartId = action.payload;
     },
 
-    addItem(state, action) {
+    addItemToCart(state, action) {
       if (!action.payload.itemId || !action.payload.categoryName) {
+        return;
+      }
+
+      if (!state.isEditingCart) {
         return;
       }
 
@@ -58,6 +68,7 @@ const cartSlice = createSlice({
             {
               itemId: action.payload.itemId,
               quantity: 1,
+              isCompleted: false,
             },
           ],
         };
@@ -77,32 +88,32 @@ const cartSlice = createSlice({
         );
       });
 
-      // if item is not in category, add it
+      // if item is in category, return
+      if (item) return;
 
+      // if item is not in category, add it
       if (item === -1) {
         const newItem: CartSliceItem = {
           itemId: action.payload.itemId,
           quantity: 1,
+          isCompleted: false,
         };
         state.items[category].items = [...state.items[category].items, newItem];
         // update the total quantities
         state.totalQuantity = state.totalQuantity + 1;
 
         return;
-      } else {
-        // if item is in category, update it
-        state.items[category].items[item].quantity =
-          state.items[category].items[item].quantity + 1;
       }
-
-      // update the totalQuantity Field
-      state.totalQuantity = state.totalQuantity + 1;
     },
 
-    decreaseItem(state, action) {
-      // Decreases the quantity of the item in the cart
+    incrementItem(state, action) {
+      // Increases the quantity of the item in the cart
       // expects the itemId and category
       if (!action.payload.itemId || !action.payload.categoryName) {
+        return;
+      }
+
+      if (!state.isEditingCart) {
         return;
       }
 
@@ -119,7 +130,51 @@ const cartSlice = createSlice({
         return;
       }
 
-      // find item
+      // check if item is in category
+      const item = state.items[category].items.findIndex((item) => {
+        return (
+          item.itemId.toLowerCase() === action.payload.itemId.toLowerCase()
+        );
+      });
+
+      // if item is not in category
+
+      if (item === -1) {
+        return;
+      }
+
+      // if item is in category, update it
+      // add 1 from it
+      state.items[category].items[item].quantity =
+        state.items[category].items[item].quantity + 1;
+
+      // update the total quantity
+      state.totalQuantity = state.totalQuantity + 1;
+    },
+
+    decrementItem(state, action) {
+      // Decreases the quantity of the item in the cart
+      // expects the itemId and category
+      if (!action.payload.itemId || !action.payload.categoryName) {
+        return;
+      }
+
+      if (!state.isEditingCart) {
+        return;
+      }
+
+      // check if the category is in state
+      const category = state.items.findIndex((item) => {
+        return (
+          item.categoryName.toLowerCase() ===
+          action.payload.categoryName.toLowerCase()
+        );
+      });
+
+      // if category is not in items
+      if (category === -1) {
+        return;
+      }
 
       // check if item is in category
       const item = state.items[category].items.findIndex((item) => {
@@ -171,6 +226,10 @@ const cartSlice = createSlice({
       // expects the id
       if (!action.payload) return;
 
+      if (!state.isEditingCart) {
+        return;
+      }
+
       // find the item
       // check if the category is in state
       const category = state.items.findIndex((item) => {
@@ -214,6 +273,57 @@ const cartSlice = createSlice({
 
       // update the total quantity
       state.totalQuantity = state.totalQuantity - itemQuantity;
+    },
+    toggleIsCompletedState(state, action) {
+      // marks the item as completed or not
+      // expects itemId and category
+      if (!action.payload.itemId || !action.payload.categoryName) {
+        return;
+      }
+
+      if (state.isEditingCart) {
+        return;
+      }
+
+      // check if the category is in state
+      const category = state.items.findIndex((item) => {
+        return (
+          item.categoryName.toLowerCase() ===
+          action.payload.categoryName.toLowerCase()
+        );
+      });
+
+      // if category is not in items
+      if (category === -1) {
+        return;
+      }
+
+      // check if item is in category
+      const item = state.items[category].items.findIndex((item) => {
+        return (
+          item.itemId.toLowerCase() === action.payload.itemId.toLowerCase()
+        );
+      });
+
+      // if item is not in category
+
+      if (item === -1) {
+        return;
+      }
+
+      // if item is in category, update it
+      state.items[category].items[item].isCompleted =
+        !state.items[category].items[item].isCompleted;
+    },
+
+    toggleIsEditingCart(state) {
+      state.isEditingCart = !state.isEditingCart;
+    },
+
+    setCartTitle(state, action) {
+      if (!action.payload.cartName || action.payload.cartName === "") return;
+
+      state.cartTitle = action.payload.cartName;
     },
   },
 });

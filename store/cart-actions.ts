@@ -28,9 +28,27 @@ export function addItemToCart(
       quantity: quantity || 1,
     };
 
-    dispatch(cartActions.addItem(cartItemDetails));
+    dispatch(cartActions.addItemToCart(cartItemDetails));
     return true;
   } catch (error) {
+    return false;
+  }
+}
+
+export function increaseItemInCart(
+  dispatch: any,
+  itemId: string,
+  category: string
+) {
+  try {
+    dispatch(
+      cartActions.incrementItem({
+        itemId,
+        categoryName: category,
+      })
+    );
+  } catch (error) {
+    console.log(error);
     return false;
   }
 }
@@ -40,10 +58,9 @@ export function decreaseItemInCart(
   itemId: string,
   category: string
 ) {
-  console.log("decrease item");
   try {
     dispatch(
-      cartActions.decreaseItem({
+      cartActions.decrementItem({
         itemId,
         categoryName: category,
       })

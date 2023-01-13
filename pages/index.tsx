@@ -2,6 +2,9 @@ import Head from "next/head";
 import AllItems from "../components/all-items/AllItems";
 import Header from "../components/all-items/Header";
 import ItemsList from "../components/all-items/ItemsList";
+import { AJAX } from "../public/utils/http";
+import { API_BASE_URL } from "../public/utils/types";
+import { DUMMY_ITEMS } from "../store/items";
 
 export default function Home() {
   return (

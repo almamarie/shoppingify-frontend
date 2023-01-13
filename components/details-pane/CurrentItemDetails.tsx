@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useAppDispatch, useAppSelector } from "../../store";
+import { addItemToCart } from "../../store/cart-actions";
 import { detailsPaneActions } from "../../store/details-pane-slice";
 import { DUMMY_ITEMS } from "../../store/items";
 import Button from "../ui/buttons/Button";
@@ -15,6 +16,10 @@ const CurrentItemDetails = () => {
   const itemId = useAppSelector((state) => {
     return state.detailsPane.itemId;
   });
+
+  function addItemToCartHandler() {
+    addItemToCart(dispatch, itemId);
+  }
 
   // get id from database
   const itemDetails = DUMMY_ITEMS.find((item) => {
@@ -66,12 +71,19 @@ const CurrentItemDetails = () => {
         <p>{itemDetails.notes}</p>
       </div>
       <div className={styles.buttons}>
-        <Button category="delete" type="button">
-          delete
-        </Button>
-        <Button category="submit" type="button">
-          Add to list
-        </Button>
+        <div className={styles["delete-btn-wrapper"]}>
+          <Button category="delete" type="button">
+            delete
+          </Button>
+        </div>
+        <div
+          className={styles["submit-btn-wrapper"]}
+          onClick={addItemToCartHandler}
+        >
+          <Button category="submit" type="button">
+            Add to list
+          </Button>
+        </div>
       </div>
     </div>
   );

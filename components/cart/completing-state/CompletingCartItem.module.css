@@ -5,6 +5,30 @@
   height: 4.49rem;
 }
 
+.check-plus-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.604rem;
+}
+
+.check-box {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 2px solid #f9a109;
+  border-radius: 0.4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-icon {
+  width: 1.676rem;
+  stroke: #f9a109;
+  stroke-width: 3;
+}
+
 .name {
   font-size: 1.8rem;
   font-weight: 500;
@@ -23,46 +47,11 @@
   text-overflow: ellipsis;
 }
 
-.icons-wrapper {
-  padding-right: 1rem;
-  height: 4.49rem;
-
-  background-color: #fff;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  border-radius: 12px;
-  gap: 1.349rem;
+.hide {
+  display: none;
+  visibility: 0;
 }
 
-.increase,
-.decrease {
-  width: 1.4rem;
-}
-
-.increase:hover,
-.decrease:hover,
-.bin:hover {
-  transform: scale(1.5);
-}
-
-.increase:active,
-.decrease:active,
-.bin:active {
-  transform: scale(1);
-}
-
-.bin-wrapper {
-  width: 4rem;
-  height: 100%;
-  background-color: #f9a109;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.bin {
-  width: 1.05rem;
-  height: 1.35rem;
+.strikethrough {
+  text-decoration: line-through;
 }

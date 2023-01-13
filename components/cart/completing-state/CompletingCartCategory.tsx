@@ -1,6 +1,6 @@
 import styles from "./CompletingCartCategory.module.css";
 import { CartSliceCategory } from "../../../store/cart-slice";
-import CartItem from "./CompletingCarItem";
+import CompletingCartItem from "./CompletingCarItem";
 
 const CompletingCartCategory: React.FC<{ category: CartSliceCategory }> = (
   props
@@ -8,7 +8,7 @@ const CompletingCartCategory: React.FC<{ category: CartSliceCategory }> = (
   function generateItems() {
     return props.category.items.map((item, index) => {
       return (
-        <CartItem
+        <CompletingCartItem
           key={index}
           category={props.category.categoryName}
           item={item}
