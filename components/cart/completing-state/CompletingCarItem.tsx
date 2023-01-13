@@ -1,4 +1,4 @@
-import styles from "./CartItem.module.css";
+import styles from "./CompletingCartItem.module.css";
 import { CartSliceItem } from "../../../store/cart-slice";
 import { useRef, useState } from "react";
 import { useAppDispatch } from "../../../store";
@@ -8,7 +8,7 @@ import {
   removeItemFromCart,
 } from "../../../store/cart-actions";
 
-const CartItem: React.FC<{ item: CartSliceItem; category: string }> = (
+const CompletingCartItem: React.FC<{ item: CartSliceItem; category: string }> = (
   props
 ) => {
   const [hover, setHover] = useState(false);
@@ -30,16 +30,6 @@ const CartItem: React.FC<{ item: CartSliceItem; category: string }> = (
     removeItemFromCart(dispatch, itemId, props.category);
   }
 
-  //   useEffect(() => {
-  //     const timer = setTimeout(() => {
-  //       if (newQuantity === 0) return;
-  //       console.log(newQuantity);
-  //       addItemToCart(dispatch, itemId, newQuantity);
-  //     }, 2000);
-  //     return () => {
-  //       clearTimeout(timer);
-  //     };
-  //   }, [newQuantity, itemId, dispatch]);
 
   function generateQuantityAndControl() {
     if (hover) {
@@ -116,4 +106,4 @@ const CartItem: React.FC<{ item: CartSliceItem; category: string }> = (
   );
 };
 
-export default CartItem;
+export default CompletingCartItem;

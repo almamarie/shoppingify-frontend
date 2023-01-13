@@ -2,7 +2,7 @@ import styles from "./CurrentCart.module.css";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { detailsPaneActions } from "../../store/details-pane-slice";
 import { Fragment, useState } from "react";
-import CartCategory from "./editing-state/CartCategory";
+import CartCategory from "./editing-state/EditingCartCategory";
 import EmptyCart from "./EmptyCart";
 import Footer from "./Footer";
 
@@ -18,10 +18,16 @@ const CurrentCart = () => {
     dispatch(detailsPaneActions.setShowing("add new item"));
   };
 
-  function generateEditingItems() {
+  function generateEditingStateItems() {
     return cartItems.map((category, index) => {
       console.log("items category: ", category);
       return <CartCategory key={index} category={category} />;
+    });
+  }
+
+  function generateCompletingStateItems() {
+    return cartItems.map((category, index) => {
+      return <p key={index}>here</p>;
     });
   }
 
@@ -50,7 +56,9 @@ const CurrentCart = () => {
           </svg>
         </div>
 
-        <div className={styles["main-items"]}>{generateEditingItems()}</div>
+        <div className={styles["main-items"]}>
+          {generateCompletingStateItems()}
+        </div>
       </Fragment>
     );
   }
