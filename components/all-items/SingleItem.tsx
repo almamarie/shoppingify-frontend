@@ -8,11 +8,7 @@ const SingleItem: React.FC<{ item: Item; category: string }> = (props) => {
   const dispatch = useAppDispatch();
 
   const addItemToCartHandler = () => {
-    const result = addItemToCart(
-      dispatch,
-      props.item.name,
-      props.category
-    );
+    const result = addItemToCart(dispatch, props.item.name, props.category);
     if (!result) {
       console.log("error");
       return;

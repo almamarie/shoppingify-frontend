@@ -3,7 +3,6 @@ import { CartSliceItem } from "../../../store/cart-slice";
 import { useRef, useState } from "react";
 import { useAppDispatch } from "../../../store";
 import {
-  addItemToCart,
   decreaseItemInCart,
   increaseItemInCart,
   removeItemFromCart,

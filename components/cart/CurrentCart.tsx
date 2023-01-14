@@ -1,7 +1,7 @@
 import styles from "./CurrentCart.module.css";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { detailsPaneActions } from "../../store/details-pane-slice";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import EmptyCart from "./EmptyCart";
 import Footer from "./Footer";
 import CompletingCartCategory from "./completing-state/CompletingCartCategory";
@@ -10,6 +10,8 @@ import { cartActions } from "../../store/cart-slice";
 
 const CurrentCart = () => {
   const dispatch = useAppDispatch();
+  const [isInitialRender, setIsInitialRender] = useState(true);
+
   // fetch cart id from store
   const [totalQuantity, cartTitle, cartItems, isEditingCart] = useAppSelector(
     (state) => {
@@ -21,6 +23,7 @@ const CurrentCart = () => {
       ];
     }
   );
+
   const [cartState, setCartState] = useState("");
 
   const addItemHandler = () => {

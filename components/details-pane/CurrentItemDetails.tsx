@@ -8,7 +8,7 @@ import styles from "./CurrentItemDetails.module.css";
 
 const CurrentItemDetails = () => {
   const dispatch = useAppDispatch();
-  const items = useAppSelector(state=>state.items.items)
+  const items = useAppSelector((state) => state.items.items);
   const goBackHandler = () => {
     dispatch(detailsPaneActions.historyPop());
   };
@@ -26,6 +26,7 @@ const CurrentItemDetails = () => {
 
   function addItemToCartHandler() {
     addItemToCart(dispatch, itemId, itemDetails?.category!);
+    
   }
 
   if (!itemDetails) {
@@ -70,7 +71,7 @@ const CurrentItemDetails = () => {
 
       <div className={styles.detail}>
         <h3>note</h3>
-        <p>{itemDetails.notes}</p>
+        <p>{itemDetails.note}</p>
       </div>
       <div className={styles.buttons}>
         <div className={styles["delete-btn-wrapper"]}>

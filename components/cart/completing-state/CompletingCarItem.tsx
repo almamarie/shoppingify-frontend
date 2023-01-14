@@ -1,22 +1,53 @@
 import styles from "./CompletingCartItem.module.css";
-import { cartActions, CartSliceItem } from "../../../store/cart-slice";
-import { useAppDispatch } from "../../../store";
+import {
+  cartActions,
+  CartSliceItem,
+  CurrentCartUploadType,
+} from "../../../store/cart-slice";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { updateCart } from "../../../public/utils/update-cart";
 
 const CompletingCartItem: React.FC<{
   item: CartSliceItem;
   category: string;
 }> = (props) => {
   const dispatch = useAppDispatch();
-
   const { itemId, quantity, isCompleted } = props.item;
+  const [cartTitle, items, totalQuantity, cartState, isEditingCart] =
+    useAppSelector((state) => {
+      return [
+        state.cart.cartTitle,
+        state.cart.items,
+        state.cart.totalQuantity,
+        state.cart.cartState,
+        state.cart.isEditingCart,
+      ];
+    });
 
-  function toggleItemIsCompletedState() {
+  async function toggleItemIsCompletedState() {
     dispatch(
       cartActions.toggleIsCompletedState({
         itemId,
         categoryName: props.category,
       })
     );
+
+    // update cart in firebase
+    // ================================================
+
+    // For some
+
+    const cartData: CurrentCartUploadType = {
+      cartTitle,
+      items,
+      totalQuantity,
+      cartState,
+      isEditingCart,
+    };
+    console.log("CartData: ", cartData);
+    const response = updateCart(cartData);
+
+    // ================================================
   }
 
   return (
