@@ -5,12 +5,31 @@ export type ItemsType = {
   image: string;
   category: string;
 };
-const initialState: ItemsType[] = [];
 
+const initialState = {
+  items: [],
+  categories: [],
+  categoriesItems: [],
+};
 const itemsSlice = createSlice({
   name: "items",
   initialState,
-  reducers: {},
+  reducers: {
+    initialize(state, action) {
+      if (
+        !action.payload.allItems ||
+        !action.payload.allCategories ||
+        !action.payload.categoriesItems
+      )
+        return;
+
+      state.categories = action.payload.allCategories;
+
+      state.items = action.payload.allItems;
+
+      state.categoriesItems = action.payload.categoriesItems;
+    },
+  },
 });
 
 export default itemsSlice;

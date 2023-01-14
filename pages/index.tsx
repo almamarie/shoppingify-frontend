@@ -3,9 +3,10 @@ import Head from "next/head";
 import { useState } from "react";
 import Header from "../components/all-items/Header";
 import { GET_AJAX } from "../public/utils/http";
-import { ItemsType } from "../store/items-slice";
+import { itemsActions, ItemsType } from "../store/items-slice";
 import styles from "./Index.module.css";
 import AllItems from "../components/all-items/AllItems";
+import { useAppDispatch } from "../store";
 
 type ExpectedData = {
   allItems: ItemsType[];
@@ -15,8 +16,11 @@ type ExpectedData = {
 };
 
 const Home: NextPage<ExpectedData> = (props) => {
+  const dispatch = useAppDispatch();
   const [error, setError] = useState(props.error);
-
+  if (!error) {
+    dispatch(itemsActions.initialize(props));
+  }
   let errorMessage = (
     <p className={styles.error}>
       Error loading data
