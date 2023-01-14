@@ -1,4 +1,3 @@
-import { DUMMY_LIST } from "../../store/category-list";
 import { API_BASE_URL } from "./types";
 
 //    a function for http requests

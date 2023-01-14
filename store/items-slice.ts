@@ -6,7 +6,13 @@ export type ItemsType = {
   category: string;
 };
 
-const initialState = {
+type InitialStateType = {
+  items: ItemsType[];
+  categories: [];
+  categoriesItems: [];
+};
+
+const initialState: InitialStateType = {
   items: [],
   categories: [],
   categoriesItems: [],

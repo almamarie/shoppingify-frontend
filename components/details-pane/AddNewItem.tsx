@@ -7,8 +7,7 @@ import {
   useState,
 } from "react";
 // import { useDispatch } from "react-redux";
-import { useAppDispatch } from "../../store";
-import { DUMMY_CATEGORIES } from "../../store/category-list";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { detailsPaneActions } from "../../store/details-pane-slice";
 import Button from "../ui/buttons/Button";
 import styles from "./AddNewItem.module.css";
@@ -29,6 +28,7 @@ const AddNewItem = () => {
 
   const categoryRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
+  const categories = useAppSelector((state) => state.items.categories);
   const categoriesStyle = styles["categories-wrapper"]; // `${styles["categories-wrapper"]} ${showCategories ? "" : styles.hide}`;
   const [currentCategory, setCurrentCategory] = useState("");
   const categoryChangeHandler = () => {
@@ -110,7 +110,7 @@ const AddNewItem = () => {
         // onBlur={removeCategoriesDiv}
       >
         <ul>
-          {DUMMY_CATEGORIES.map((category) => {
+          {categories.map((category) => {
             return (
               <li
                 //   onFocus={showCategoriesDiv}

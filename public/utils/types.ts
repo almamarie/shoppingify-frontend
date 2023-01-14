@@ -7,6 +7,13 @@ export type Item = {
   image: string;
 };
 
+export type ItemsType = {
+  name: string;
+  notes: string;
+  image: string;
+  category: string;
+};
+
 export type CategoriesType = {
   name: string;
 }[];

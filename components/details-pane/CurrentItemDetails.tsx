@@ -3,13 +3,12 @@
 import { useAppDispatch, useAppSelector } from "../../store";
 import { addItemToCart } from "../../store/cart-actions";
 import { detailsPaneActions } from "../../store/details-pane-slice";
-import { DUMMY_ITEMS } from "../../store/items";
-import { ItemsType } from "../../store/items-slice";
 import Button from "../ui/buttons/Button";
 import styles from "./CurrentItemDetails.module.css";
 
 const CurrentItemDetails = () => {
   const dispatch = useAppDispatch();
+  const items = useAppSelector(state=>state.items.items)
   const goBackHandler = () => {
     dispatch(detailsPaneActions.historyPop());
   };
@@ -19,7 +18,7 @@ const CurrentItemDetails = () => {
   });
 
   // get id from database
-  const itemDetails = DUMMY_ITEMS.find((item) => {
+  const itemDetails = items.find((item) => {
     return item.name.toLowerCase() === itemId.toLowerCase();
   });
 

@@ -1,80 +1,82 @@
-export const DUMMY_LIST =
-  // TODO: Add pictures and better context for each
-  {
-    "Fruits and vegetables": [
-      {
-        name: "Avocado",
-      },
-      {
-        name: "Banana",
-      },
-      {
-        name: "Bunch of carrots 5pcs",
-      },
-      {
-        name: "Chicken 1kg",
-      },
-      {
-        name: "Pre cooked corn 450g",
-      },
+export const name = "louis"
 
-      {
-        name: "Mandarin Nadorcott",
-      },
-      {
-        name: "Piele De Sapo Melon",
-      },
-      {
-        name: "Watermelon",
-      },
-    ],
+// export const DUMMY_LIST =
+//   // TODO: Add pictures and better context for each
+//   {
+//     "Fruits and vegetables": [
+//       {
+//         name: "Avocado",
+//       },
+//       {
+//         name: "Banana",
+//       },
+//       {
+//         name: "Bunch of carrots 5pcs",
+//       },
+//       {
+//         name: "Chicken 1kg",
+//       },
+//       {
+//         name: "Pre cooked corn 450g",
+//       },
 
-    //   TODO: Add pictures of each
-    "Meat and Fish": [
-      {
-        name: "Chicken leg box",
-      },
+//       {
+//         name: "Mandarin Nadorcott",
+//       },
+//       {
+//         name: "Piele De Sapo Melon",
+//       },
+//       {
+//         name: "Watermelon",
+//       },
+//     ],
 
-      {
-        name: "Chicken 1kg",
-      },
-      {
-        name: "Pork fillets 450g",
-      },
-      {
-        name: "Salmon 1kg",
-      },
-    ],
+//     //   TODO: Add pictures of each
+//     "Meat and Fish": [
+//       {
+//         name: "Chicken leg box",
+//       },
 
-    //TODO: Add real Beverages and their pistures
+//       {
+//         name: "Chicken 1kg",
+//       },
+//       {
+//         name: "Pork fillets 450g",
+//       },
+//       {
+//         name: "Salmon 1kg",
+//       },
+//     ],
 
-    Beverages: [
-      {
-        name: "coca-cola",
-      },
+//     //TODO: Add real Beverages and their pistures
 
-      {
-        name: "malta",
-      },
-      {
-        name: "sprite",
-      },
-      {
-        name: "pepsi",
-      },
+//     Beverages: [
+//       {
+//         name: "coca-cola",
+//       },
 
-      {
-        name: "beer",
-      },
-    ],
+//       {
+//         name: "malta",
+//       },
+//       {
+//         name: "sprite",
+//       },
+//       {
+//         name: "pepsi",
+//       },
 
-    // TODO: Add more pets and their pictures
+//       {
+//         name: "beer",
+//       },
+//     ],
 
-    Pets: [
-      {
-        name: "Salmon 1kg",
-      },
-    ],
-  };
+//     // TODO: Add more pets and their pictures
 
-export const DUMMY_CATEGORIES = Object.keys(DUMMY_LIST);
+//     Pets: [
+//       {
+//         name: "Salmon 1kg",
+//       },
+//     ],
+//   };
+
+// export const DUMMY_CATEGORIES = Object.keys(DUMMY_LIST);
