@@ -4,28 +4,14 @@ import { ExpectedAddItemToCartFormat } from "./cart-slice";
 import { useAppDispatch } from ".";
 
 // TODO: find the type of dispatch
-export function addItemToCart(
-  dispatch: any,
-  itemId: string,
-  quantity: number | false = false
-) {
+export function addItemToCart(dispatch: any, itemId: string, category: string) {
   try {
-    // fetch item from database
-    const item = DUMMY_ITEMS.find((item) => {
-      return item.name.toLowerCase() === itemId.toLowerCase();
-    });
-
-    if (!item) {
-      //   console.log("item not found");
-      return false;
-    }
-
     //   The add item reducer of the cart-slice expects data in a particular formart.
     //   I am going to import the type and use it here it here
     const cartItemDetails: ExpectedAddItemToCartFormat = {
       itemId: itemId,
-      categoryName: item.category,
-      quantity: quantity || 1,
+      categoryName: category,
+      quantity: 1,
     };
 
     dispatch(cartActions.addItemToCart(cartItemDetails));

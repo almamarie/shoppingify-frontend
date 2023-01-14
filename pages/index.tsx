@@ -1,12 +1,29 @@
+import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import AllItems from "../components/all-items/AllItems";
+import { useState } from "react";
 import Header from "../components/all-items/Header";
-import ItemsList from "../components/all-items/ItemsList";
-import { AJAX } from "../public/utils/http";
-import { API_BASE_URL } from "../public/utils/types";
-import { DUMMY_ITEMS } from "../store/items";
+import { GET_AJAX } from "../public/utils/http";
+import { ItemsType } from "../store/items-slice";
+import styles from "./Index.module.css";
+import AllItems from "../components/all-items/AllItems";
 
-export default function Home() {
+type ExpectedData = {
+  allItems: ItemsType[];
+  allCategories: [];
+  categoriesItems: [];
+  error: boolean;
+};
+
+const Home: NextPage<ExpectedData> = (props) => {
+  const [error, setError] = useState(props.error);
+
+  let errorMessage = (
+    <p className={styles.error}>
+      Error loading data
+      <br />
+      Please check your network and try again
+    </p>
+  );
   return (
     <>
       <Head>
@@ -15,7 +32,46 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Header />
-      <AllItems />
+
+      {!error ? <AllItems items={props.categoriesItems} /> : errorMessage}
     </>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  // const categoriesItemsUrl = API_BASE_URL + "categories-items.json";
+
+  // const response = await fetch(categoriesItemsUrl);
+  // const data = await response.json();
+  // console.log(data);
+
+  const allItems = await GET_AJAX("all-items");
+  const allCategories = await GET_AJAX("categories");
+  const categoriesItems = await GET_AJAX("categories-items-list");
+
+  let error: boolean;
+
+  if (
+    allCategories.success === false ||
+    allItems.success === false ||
+    categoriesItems.success === false
+  ) {
+    console.log("error occured here");
+    error = true;
+  } else {
+    error = false;
+  }
+  console.log("error: ", error);
+
+  return {
+    props: {
+      allItems: allItems.message,
+      allCategories: allCategories.message,
+      categoriesItems: categoriesItems.message,
+      error,
+    },
+    revalidate: 1,
+  };
+};
+
+export default Home;

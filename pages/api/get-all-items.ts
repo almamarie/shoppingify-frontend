@@ -12,11 +12,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ success: true, message: "working" });
-
-  const url = API_BASE_URL + "items.json";
+  const url = API_BASE_URL + "all-items.json";
   try {
-    const data = await AJAX(url, DUMMY_ITEMS);
+    const response = await fetch(url);
+    const data = await response.json();
     res.status(200).json({ success: true, message: data });
   } catch (error) {
     console.log("AN ERROR OCCURED: ", error);

@@ -1,21 +1,22 @@
 import styles from "./SingleItem.module.css";
-import SingleItemCard from "../ui/cart/SingleItemCard";
 import { useAppDispatch } from "../../store";
 import { addItemToCart } from "../../store/cart-actions";
 import { detailsPaneActions } from "../../store/details-pane-slice";
 
 type Item = { name: string };
-const SingleItem: React.FC<{ item: Item }> = (props) => {
+const SingleItem: React.FC<{ item: Item; category: string }> = (props) => {
   const dispatch = useAppDispatch();
 
   const addItemToCartHandler = () => {
-    // console.log("adding item to database");
-    const result = addItemToCart(dispatch, props.item.name, false);
+    const result = addItemToCart(
+      dispatch,
+      props.item.name,
+      props.category
+    );
     if (!result) {
       console.log("error");
       return;
     }
-    // console.log("Item added successfully");
   };
 
   function setSelectedHandler() {
@@ -23,8 +24,6 @@ const SingleItem: React.FC<{ item: Item }> = (props) => {
   }
 
   return (
-    // <SingleItemCard itemId={props.item.name}>
-    // <div className={styles.wrapper}>
     <div className={styles.card}>
       <p onClick={setSelectedHandler} className={styles.name}>
         {props.item.name}
@@ -46,9 +45,6 @@ const SingleItem: React.FC<{ item: Item }> = (props) => {
         </svg>
       </div>
     </div>
-    // </div>
-
-    // </SingleItemCard>
   );
 };
 

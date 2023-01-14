@@ -1,17 +1,18 @@
-import { DUMMY_LIST } from "../../store/category-list";
-import styles from "./AllItems.module.css";
 import ItemsList from "./ItemsList";
 
-const DUMMY_CATEGORIES = DUMMY_LIST;
-const AllItems = () => {
+export type AllItemsExpectedDataType = {
+  items: {};
+};
+
+const AllItems: React.FC<AllItemsExpectedDataType> = (props) => {
   return (
     <section>
-      {Object.keys(DUMMY_CATEGORIES).map((item) => {
+      {Object.keys(props.items).map((item) => {
         return (
           <ItemsList
             key={item}
             category={item}
-            items={DUMMY_CATEGORIES[item as keyof typeof DUMMY_CATEGORIES]}
+            items={props.items[item as keyof typeof props.items]}
           />
         );
       })}

@@ -7,7 +7,7 @@ type Item = {
 const ItemsList: React.FC<{ category: string; items: Item[] }> = (props) => {
   const generateItems = () => {
     return props.items.map((item, index) => {
-      return <SingleItem key={index} item={item} />;
+    return <SingleItem key={index} item={item} category={props.category}/>;
     });
   };
   return (

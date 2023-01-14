@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { DetailsPaneSliceType } from "../public/utils/types";
 
 const currentShowingStates = [
   "add new item",

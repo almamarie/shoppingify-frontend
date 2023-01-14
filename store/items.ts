@@ -4,7 +4,7 @@ export type ItemsType = {
   image: string;
   category: string;
 };
-export const DUMMY_ITEMS = [
+export const DUMMY_ITEMS: ItemsType[] = [
   {
     name: "Avocado",
     notes:
