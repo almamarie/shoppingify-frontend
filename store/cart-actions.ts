@@ -1,7 +1,5 @@
-import { cartActions, CartSliceCategory, CartSliceItem } from "./cart-slice";
-import { DUMMY_ITEMS } from "./items";
+import { cartActions } from "./cart-slice";
 import { ExpectedAddItemToCartFormat } from "./cart-slice";
-import { useAppDispatch } from ".";
 
 // TODO: find the type of dispatch
 export function addItemToCart(dispatch: any, itemId: string, category: string) {

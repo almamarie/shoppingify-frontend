@@ -96,7 +96,29 @@ export async function POST_AJAX(
     });
     const data = await response.json();
     if (!response.ok) throw new Error(`${data.message} (${response.status})`);
-    //   console.log(data);
+    return { success: true, message: data };
+  } catch (error) {
+    return { success: false, message: "an error occured" };
+  }
+}
+
+export async function PUT_AJAX(
+  endpoint: string,
+  uploadData: any,
+  contentType: string | undefined = undefined
+) {
+  const url = API_BASE_URL + endpoint + ".json";
+
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": contentType || "application/json",
+      },
+      body: JSON.stringify(uploadData),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(`${data.message} (${response.status})`);
     return { success: true, message: data };
   } catch (error) {
     return { success: false, message: "an error occured" };

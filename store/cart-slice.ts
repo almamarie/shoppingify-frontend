@@ -16,19 +16,25 @@ export type ExpectedAddItemToCartFormat = {
   quantity: number;
 };
 
-type InitialState = {
+type CartInitialState = {
   items: CartSliceCategory[];
   totalQuantity: number;
-  cartId: string;
   cartTitle: string;
   cartState: "in progress" | "completed" | "canceled";
   isEditingCart: boolean;
 };
 
-const initialState: InitialState = {
+export type CurrentCartUploadType = {
+  items: CartSliceCategory[];
+  totalQuantity: number;
+  cartTitle: string;
+  cartState: "in progress" | "completed" | "canceled";
+  isEditingCart: boolean;
+};
+
+const initialState: CartInitialState = {
   items: [],
   totalQuantity: 0,
-  cartId: "001",
   cartTitle: "New Shopping List",
   cartState: "in progress",
   isEditingCart: true,
@@ -38,11 +44,17 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setCartId(state, action) {
-      // sets the current cart and the currentShowing flag
-      state.cartId = action.payload;
+    initialize(state, action) {
+      try {
+        (state.items = action.payload.items),
+          (state.totalQuantity = action.payload.totalQuantity),
+          (state.cartTitle = action.payload.cartTitle),
+          (state.cartState = action.payload.cartState),
+          (state.isEditingCart = action.payload.isEditingCart);
+      } catch (error) {
+        return;
+      }
     },
-
     addItemToCart(state, action) {
       if (!action.payload.itemId || !action.payload.categoryName) {
         return;
@@ -89,7 +101,10 @@ const cartSlice = createSlice({
       });
 
       // if item is in category, return
-      if (item) return;
+      if (item >= 0) return;
+
+      console.log("item: ", item);
+      console.log("adding item to cart");
 
       // if item is not in category, add it
       if (item === -1) {

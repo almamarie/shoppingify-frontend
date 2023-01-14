@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 export type ItemsType = {
   name: string;
-  notes: string;
+  note: string;
   image: string;
   category: string;
 };
@@ -9,13 +9,13 @@ export type ItemsType = {
 type InitialStateType = {
   items: ItemsType[];
   categories: [];
-  categoriesItems: [];
+  itemsByCategories: [];
 };
 
 const initialState: InitialStateType = {
   items: [],
   categories: [],
-  categoriesItems: [],
+  itemsByCategories: [],
 };
 const itemsSlice = createSlice({
   name: "items",
@@ -23,17 +23,31 @@ const itemsSlice = createSlice({
   reducers: {
     initialize(state, action) {
       if (
-        !action.payload.allItems ||
-        !action.payload.allCategories ||
-        !action.payload.categoriesItems
+        !action.payload.items ||
+        !action.payload.categories ||
+        !action.payload.itemsByCategories
       )
         return;
 
-      state.categories = action.payload.allCategories;
+      state.categories = action.payload.categories;
 
-      state.items = action.payload.allItems;
+      state.items = action.payload.items;
 
-      state.categoriesItems = action.payload.categoriesItems;
+      state.itemsByCategories = action.payload.itemsByCategories;
+    },
+    addItem(state, action) {
+      let tmp: ItemsType;
+      try {
+        tmp = {
+          name: action.payload.name,
+          note: action.payload.note,
+          image: action.payload.image,
+          category: action.payload.category,
+        };
+      } catch (error) {
+        return;
+      }
+      state.items = [...state.items, tmp];
     },
   },
 });

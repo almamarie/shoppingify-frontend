@@ -26,6 +26,7 @@ const CurrentItemDetails = () => {
 
   function addItemToCartHandler() {
     addItemToCart(dispatch, itemId, itemDetails?.category!);
+    
   }
 
   if (!itemDetails) {
