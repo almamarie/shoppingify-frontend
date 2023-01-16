@@ -16,6 +16,14 @@ export type ExpectedAddItemToCartFormat = {
   quantity: number;
 };
 
+export type CurrentCartUploadType = {
+  items: CartSliceCategory[];
+  totalQuantity: number;
+  cartTitle: string;
+  cartState: "in progress" | "completed" | "canceled";
+  isEditingCart: boolean;
+};
+
 type InitialState = {
   items: CartSliceCategory[];
   totalQuantity: number;
