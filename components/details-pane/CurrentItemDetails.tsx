@@ -23,11 +23,6 @@ const CurrentItemDetails = () => {
 
   // get id from database
   const itemDetails = items.find((item) => {
-    console.log(
-      `${item.name.toLowerCase()} === ${itemId.toLowerCase()} => ${
-        item.name.toLowerCase() === itemId.toLowerCase()
-      }`
-    );
     return item.name.toLowerCase() === itemId.toLowerCase();
   });
 

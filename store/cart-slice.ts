@@ -61,10 +61,13 @@ const cartSlice = createSlice({
 
     addItemToCart(state, action) {
       if (!action.payload.itemId || !action.payload.categoryName) {
+        console.log("I was here");
+
         return;
       }
 
       if (!state.isEditingCart) {
+        console.log("error was here");
         return;
       }
 
@@ -105,7 +108,8 @@ const cartSlice = createSlice({
       });
 
       // if item is in category, return
-      if (item) return;
+      console.log(item);
+      if (item !== -1) return;
 
       // if item is not in category, add it
       if (item === -1) {

@@ -30,8 +30,6 @@ const CurrentCart = () => {
       }
 
       dispatch(cartActions.initialize(currentCart.message));
-
-      console.log("Current Cart: ", currentCart.message);
     }
 
     if (!firstRender) {
@@ -45,7 +43,7 @@ const CurrentCart = () => {
     if (firstRender) {
       setFirstRender(false);
     }
-  }, []);
+  }, [dispatch, firstRender]);
 
   // ==============================
 
