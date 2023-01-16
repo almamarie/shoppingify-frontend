@@ -29,9 +29,7 @@ const CurrentCart = () => {
         return;
       }
 
-      setError(true);
-
-      // dispatch(cartActions.initialize(currentCart.message));
+      dispatch(cartActions.initialize(currentCart.message));
 
       console.log("Current Cart: ", currentCart.message);
     }
