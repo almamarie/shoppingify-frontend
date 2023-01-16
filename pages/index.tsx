@@ -7,11 +7,14 @@ import { itemsActions, ItemsType } from "../store/items-slice";
 import styles from "./Index.module.css";
 import AllItems from "../components/all-items/AllItems";
 import { useAppDispatch } from "../store";
+import { groupItems } from "../public/utils/group-items";
+import { cartActions } from "../store/cart-slice";
 
 type ExpectedData = {
-  allItems: ItemsType[];
-  allCategories: [];
-  categoriesItems: [];
+  items: ItemsType[];
+  categories: [];
+  currentCart: {};
+  itemsByCategories: [];
   error: boolean;
 };
 
@@ -20,6 +23,7 @@ const Home: NextPage<ExpectedData> = (props) => {
   const [error, setError] = useState(props.error);
   if (!error) {
     dispatch(itemsActions.initialize(props));
+    // dispatch(cartActions.initialize(props.currentCart));
   }
   let errorMessage = (
     <p className={styles.error}>
@@ -37,45 +41,81 @@ const Home: NextPage<ExpectedData> = (props) => {
       </Head>
       <Header />
 
-      {!error ? <AllItems items={props.categoriesItems} /> : errorMessage}
+      {!error ? <AllItems items={props.itemsByCategories} /> : errorMessage}
     </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  // const categoriesItemsUrl = API_BASE_URL + "categories-items.json";
-
-  // const response = await fetch(categoriesItemsUrl);
-  // const data = await response.json();
-  // console.log(data);
-
   const allItems = await GET_AJAX("all-items");
   const allCategories = await GET_AJAX("categories");
   const categoriesItems = await GET_AJAX("categories-items-list");
+  const currentCart = await GET_AJAX("current-cart");
 
   let error: boolean;
 
   if (
     allCategories.success === false ||
     allItems.success === false ||
-    categoriesItems.success === false
+    categoriesItems.success === false ||
+    currentCart.success == false
   ) {
     console.log("error occured here");
     error = true;
   } else {
     error = false;
   }
-  console.log("error: ", error);
+
+  console.log("Calling all items");
+  const { items, itemsByCategories, categories } = groupItems(allItems.message);
+  // console.log("length: ", allItems);
 
   return {
     props: {
-      allItems: allItems.message,
-      allCategories: allCategories.message,
-      categoriesItems: categoriesItems.message,
+      items,
+      categories,
+      itemsByCategories,
+      currentCart: currentCart.message,
       error,
     },
     revalidate: 1,
   };
 };
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   // const categoriesItemsUrl = API_BASE_URL + "categories-items.json";
+
+//   // const response = await fetch(categoriesItemsUrl);
+//   // const data = await response.json();
+//   // console.log(data);
+
+//   const allItems = await GET_AJAX("all-items");
+//   const allCategories = await GET_AJAX("categories");
+//   const categoriesItems = await GET_AJAX("categories-items-list");
+
+//   let error: boolean;
+
+//   if (
+//     allCategories.success === false ||
+//     allItems.success === false ||
+//     categoriesItems.success === false
+//   ) {
+//     console.log("error occured here");
+//     error = true;
+//   } else {
+//     error = false;
+//   }
+//   console.log("error: ", error);
+
+//   return {
+//     props: {
+//       allItems: allItems.message,
+//       allCategories: allCategories.message,
+//       categoriesItems: categoriesItems.message,
+//       error,
+//     },
+//     revalidate: 1,
+//   };
+// };
 
 export default Home;

@@ -1,16 +1,56 @@
 import styles from "./CurrentCart.module.css";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { detailsPaneActions } from "../../store/details-pane-slice";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import EmptyCart from "./EmptyCart";
 import Footer from "./Footer";
 import CompletingCartCategory from "./completing-state/CompletingCartCategory";
 import EditingCartCategory from "./editing-state/EditingCartCategory";
 import { cartActions } from "../../store/cart-slice";
+import { GET_AJAX } from "../../public/utils/http";
+import DataFetchError from "../ui/data-fetch-error/DataFetchErrorSmall";
+import Loader from "../ui/loader/Loader";
 
 const CurrentCart = () => {
   const dispatch = useAppDispatch();
-  // fetch cart id from store
+  // ==============================
+  // fetch current cart from store
+  // =============================
+  const [firstRender, setFirstRender] = useState(true);
+  const [error, setError] = useState(false);
+  const [fetchingData, setFetchingData] = useState(true);
+
+  useEffect(() => {
+    async function fetchdata() {
+      const currentCart = await GET_AJAX("current-cart");
+
+      if (currentCart.success === false) {
+        setError(true);
+        return;
+      }
+
+      setError(true);
+
+      // dispatch(cartActions.initialize(currentCart.message));
+
+      console.log("Current Cart: ", currentCart.message);
+    }
+
+    if (!firstRender) {
+      return;
+    }
+
+    setFetchingData(true);
+    fetchdata();
+    setFetchingData(false);
+
+    if (firstRender) {
+      setFirstRender(false);
+    }
+  }, []);
+
+  // ==============================
+
   const [totalQuantity, cartTitle, cartItems, isEditingCart] = useAppSelector(
     (state) => {
       return [
@@ -21,7 +61,6 @@ const CurrentCart = () => {
       ];
     }
   );
-  const [cartState, setCartState] = useState("");
 
   const addItemHandler = () => {
     dispatch(detailsPaneActions.setShowing("add new item"));
@@ -44,6 +83,22 @@ const CurrentCart = () => {
   }
 
   function generateCart() {
+    if (error) {
+      return (
+        <div className={styles["centered-text"]}>
+          <DataFetchError />
+        </div>
+      );
+    }
+
+    if (fetchingData) {
+      return (
+        <div className={styles["centered-text"]}>
+          <Loader />
+        </div>
+      );
+    }
+
     if (cartItems.length === 0 || totalQuantity === 0) {
       return <EmptyCart />;
     }
@@ -86,6 +141,7 @@ const CurrentCart = () => {
       </Fragment>
     );
   }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>

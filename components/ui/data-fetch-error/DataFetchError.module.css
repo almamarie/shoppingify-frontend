@@ -1,0 +1,20 @@
+.centered-text {
+  color: red;
+  text-align: center;
+}
+
+.icon {
+  height: 3rem;
+  width: 3rem;
+  background-color: red;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+  font-size: 2rem;
+
+  margin: 0 auto;
+}

@@ -47,7 +47,6 @@ const Footer: React.FC<{ isEditingCart: boolean }> = (props) => {
     disableCart ? styles["empty-cart"] : ""
   }`;
 
-  console.log("New Shopping List" === cartTitle);
   const cartName =
     cartTitle === "New Shopping List" ? "enter a name" : cartTitle;
 

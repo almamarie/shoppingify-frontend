@@ -19,7 +19,7 @@ export type ExpectedAddItemToCartFormat = {
 type InitialState = {
   items: CartSliceCategory[];
   totalQuantity: number;
-  cartId: string;
+  // cartId: string;
   cartTitle: string;
   cartState: "in progress" | "completed" | "canceled";
   isEditingCart: boolean;
@@ -28,7 +28,7 @@ type InitialState = {
 const initialState: InitialState = {
   items: [],
   totalQuantity: 0,
-  cartId: "001",
+  // cartId: "001",
   cartTitle: "New Shopping List",
   cartState: "in progress",
   isEditingCart: true,
@@ -38,10 +38,26 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setCartId(state, action) {
-      // sets the current cart and the currentShowing flag
-      state.cartId = action.payload;
+    initialize(state, action) {
+      if (
+        !action.payload.items ||
+        !action.payload.totalQuantity ||
+        !action.payload.cartTitle ||
+        !action.payload.cartState ||
+        action.payload.isEditingCart === undefined
+      )
+        return;
+
+      state.items = action.payload.items;
+      state.totalQuantity = action.payload.totalQuantity;
+      state.cartTitle = action.payload.cartTitle;
+      state.cartState = action.payload.cartState;
+      state.isEditingCart = action.payload.isEditingCart;
     },
+    // setCartId(state, action) {
+    //   // sets the current cart and the currentShowing flag
+    //   state.cartId = action.payload;
+    // },
 
     addItemToCart(state, action) {
       if (!action.payload.itemId || !action.payload.categoryName) {
