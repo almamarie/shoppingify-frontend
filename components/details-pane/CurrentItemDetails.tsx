@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { addItemToCart } from "../../store/cart-actions";
 import { detailsPaneActions } from "../../store/details-pane-slice";
@@ -8,21 +9,32 @@ import styles from "./CurrentItemDetails.module.css";
 
 const CurrentItemDetails = () => {
   const dispatch = useAppDispatch();
-  const items = useAppSelector(state=>state.items.items)
-  const goBackHandler = () => {
-    dispatch(detailsPaneActions.historyPop());
-  };
+  const items = useAppSelector((state) => state.items.items);
+  const [error, setError] = useState(false);
+
   // fetch item id from store
   const itemId = useAppSelector((state) => {
     return state.detailsPane.itemId;
   });
 
+  const goBackHandler = () => {
+    dispatch(detailsPaneActions.historyPop());
+  };
+
   // get id from database
   const itemDetails = items.find((item) => {
+    console.log(
+      `${item.name.toLowerCase()} === ${itemId.toLowerCase()} => ${
+        item.name.toLowerCase() === itemId.toLowerCase()
+      }`
+    );
     return item.name.toLowerCase() === itemId.toLowerCase();
   });
 
-  if (!itemDetails) return;
+  if (!itemDetails) {
+    console.log("error");
+    console.log(itemDetails);
+  }
 
   function addItemToCartHandler() {
     addItemToCart(dispatch, itemId, itemDetails?.category!);
@@ -70,7 +82,7 @@ const CurrentItemDetails = () => {
 
       <div className={styles.detail}>
         <h3>note</h3>
-        <p>{itemDetails.notes}</p>
+        <p>{itemDetails.note}</p>
       </div>
       <div className={styles.buttons}>
         <div className={styles["delete-btn-wrapper"]}>
