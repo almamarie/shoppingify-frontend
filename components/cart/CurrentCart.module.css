@@ -1,6 +1,7 @@
 .wrapper {
   display: grid;
   grid-template-rows: fit-content(1fr) 13.098rem;
+  position: relative;
 }
 
 .main {
@@ -83,4 +84,11 @@
 
 .edit-icon-editing {
   fill: #000;
+}
+
+.centered-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
 }

@@ -12,9 +12,12 @@ export function addItemToCart(dispatch: any, itemId: string, category: string) {
       quantity: 1,
     };
 
+    console.log("action function");
+
     dispatch(cartActions.addItemToCart(cartItemDetails));
     return true;
   } catch (error) {
+    console.log(error);
     return false;
   }
 }

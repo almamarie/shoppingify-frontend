@@ -16,14 +16,6 @@ export type ExpectedAddItemToCartFormat = {
   quantity: number;
 };
 
-type CartInitialState = {
-  items: CartSliceCategory[];
-  totalQuantity: number;
-  cartTitle: string;
-  cartState: "in progress" | "completed" | "canceled";
-  isEditingCart: boolean;
-};
-
 export type CurrentCartUploadType = {
   items: CartSliceCategory[];
   totalQuantity: number;
@@ -32,9 +24,27 @@ export type CurrentCartUploadType = {
   isEditingCart: boolean;
 };
 
-const initialState: CartInitialState = {
+type InitialState = {
+  items: CartSliceCategory[];
+  totalQuantity: number;
+  // cartId: string;
+  cartTitle: string;
+  cartState: "in progress" | "completed" | "canceled";
+  isEditingCart: boolean;
+};
+
+// export type CurrentCartUploadType = {
+//   items: CartSliceCategory[];
+//   totalQuantity: number;
+//   cartTitle: string;
+//   cartState: "in progress" | "completed" | "canceled";
+//   isEditingCart: boolean;
+// };
+
+const initialState: InitialState = {
   items: [],
   totalQuantity: 0,
+  // cartId: "001",
   cartTitle: "New Shopping List",
   cartState: "in progress",
   isEditingCart: true,
@@ -45,22 +55,35 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     initialize(state, action) {
-      try {
-        (state.items = action.payload.items),
-          (state.totalQuantity = action.payload.totalQuantity),
-          (state.cartTitle = action.payload.cartTitle),
-          (state.cartState = action.payload.cartState),
-          (state.isEditingCart = action.payload.isEditingCart);
-      } catch (error) {
+      if (
+        !action.payload.items ||
+        !action.payload.totalQuantity ||
+        !action.payload.cartTitle ||
+        !action.payload.cartState ||
+        action.payload.isEditingCart === undefined
+      )
         return;
-      }
+
+      state.items = action.payload.items;
+      state.totalQuantity = action.payload.totalQuantity;
+      state.cartTitle = action.payload.cartTitle;
+      state.cartState = action.payload.cartState;
+      state.isEditingCart = action.payload.isEditingCart;
     },
+    // setCartId(state, action) {
+    //   // sets the current cart and the currentShowing flag
+    //   state.cartId = action.payload;
+    // },
+
     addItemToCart(state, action) {
       if (!action.payload.itemId || !action.payload.categoryName) {
+        console.log("I was here");
+
         return;
       }
 
       if (!state.isEditingCart) {
+        console.log("error was here");
         return;
       }
 
@@ -101,10 +124,8 @@ const cartSlice = createSlice({
       });
 
       // if item is in category, return
-      if (item >= 0) return;
-
-      console.log("item: ", item);
-      console.log("adding item to cart");
+      console.log(item);
+      if (item !== -1) return;
 
       // if item is not in category, add it
       if (item === -1) {

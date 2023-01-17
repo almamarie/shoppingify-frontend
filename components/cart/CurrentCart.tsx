@@ -7,12 +7,46 @@ import Footer from "./Footer";
 import CompletingCartCategory from "./completing-state/CompletingCartCategory";
 import EditingCartCategory from "./editing-state/EditingCartCategory";
 import { cartActions } from "../../store/cart-slice";
+import { GET_AJAX } from "../../public/utils/http";
+import DataFetchError from "../ui/data-fetch-error/DataFetchErrorSmall";
+import Loader from "../ui/loader/Loader";
 
 const CurrentCart = () => {
   const dispatch = useAppDispatch();
-  const [isInitialRender, setIsInitialRender] = useState(true);
+  // ==============================
+  // fetch current cart from store
+  // =============================
+  const [firstRender, setFirstRender] = useState(true);
+  const [error, setError] = useState(false);
+  const [fetchingData, setFetchingData] = useState(true);
 
-  // fetch cart id from store
+  useEffect(() => {
+    async function fetchdata() {
+      const currentCart = await GET_AJAX("current-cart");
+
+      if (currentCart.success === false) {
+        setError(true);
+        return;
+      }
+
+      dispatch(cartActions.initialize(currentCart.message));
+    }
+
+    if (!firstRender) {
+      return;
+    }
+
+    setFetchingData(true);
+    fetchdata();
+    setFetchingData(false);
+
+    if (firstRender) {
+      setFirstRender(false);
+    }
+  }, [dispatch, firstRender]);
+
+  // ==============================
+
   const [totalQuantity, cartTitle, cartItems, isEditingCart] = useAppSelector(
     (state) => {
       return [
@@ -23,8 +57,6 @@ const CurrentCart = () => {
       ];
     }
   );
-
-  const [cartState, setCartState] = useState("");
 
   const addItemHandler = () => {
     dispatch(detailsPaneActions.setShowing("add new item"));
@@ -47,6 +79,22 @@ const CurrentCart = () => {
   }
 
   function generateCart() {
+    if (error) {
+      return (
+        <div className={styles["centered-text"]}>
+          <DataFetchError />
+        </div>
+      );
+    }
+
+    if (fetchingData) {
+      return (
+        <div className={styles["centered-text"]}>
+          <Loader />
+        </div>
+      );
+    }
+
     if (cartItems.length === 0 || totalQuantity === 0) {
       return <EmptyCart />;
     }
@@ -89,6 +137,7 @@ const CurrentCart = () => {
       </Fragment>
     );
   }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>

@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { addItemToCart } from "../../store/cart-actions";
 import { detailsPaneActions } from "../../store/details-pane-slice";
@@ -9,24 +10,29 @@ import styles from "./CurrentItemDetails.module.css";
 const CurrentItemDetails = () => {
   const dispatch = useAppDispatch();
   const items = useAppSelector((state) => state.items.items);
-  const goBackHandler = () => {
-    dispatch(detailsPaneActions.historyPop());
-  };
+  const [error, setError] = useState(false);
+
   // fetch item id from store
   const itemId = useAppSelector((state) => {
     return state.detailsPane.itemId;
   });
+
+  const goBackHandler = () => {
+    dispatch(detailsPaneActions.historyPop());
+  };
 
   // get id from database
   const itemDetails = items.find((item) => {
     return item.name.toLowerCase() === itemId.toLowerCase();
   });
 
-  if (!itemDetails) return;
+  if (!itemDetails) {
+    console.log("error");
+    console.log(itemDetails);
+  }
 
   function addItemToCartHandler() {
     addItemToCart(dispatch, itemId, itemDetails?.category!);
-    
   }
 
   if (!itemDetails) {

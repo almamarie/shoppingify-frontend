@@ -1,4 +1,3 @@
-import { DUMMY_ITEMS } from "../../store/items";
 import { ItemsType } from "../../store/items-slice";
 
 export function groupItems(items: ItemsType[]) {
@@ -18,14 +17,10 @@ export function groupItems(items: ItemsType[]) {
     }
   });
 
-  console.log("Items by categories: ", itemsByCategories);
+  //   console.log("Items by categories: ", itemsByCategories);
   return {
     items: Object.values(items),
     itemsByCategories,
     categories: Object.keys(itemsByCategories),
   };
 }
-
-// export function convertObjectToArray(items: ItemsType[]){
-//     return;
-// }

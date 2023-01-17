@@ -35,20 +35,6 @@ const itemsSlice = createSlice({
 
       state.itemsByCategories = action.payload.itemsByCategories;
     },
-    addItem(state, action) {
-      let tmp: ItemsType;
-      try {
-        tmp = {
-          name: action.payload.name,
-          note: action.payload.note,
-          image: action.payload.image,
-          category: action.payload.category,
-        };
-      } catch (error) {
-        return;
-      }
-      state.items = [...state.items, tmp];
-    },
   },
 });
 

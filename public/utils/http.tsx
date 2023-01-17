@@ -63,7 +63,6 @@ import { API_BASE_URL } from "./types";
 //     return { success: false, message: "an error occured" };
 //   }
 // }
-
 export async function GET_AJAX(endpoint: string) {
   const url = API_BASE_URL + endpoint + ".json";
 

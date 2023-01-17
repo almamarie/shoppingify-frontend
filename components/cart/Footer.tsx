@@ -19,6 +19,8 @@ const Footer: React.FC<{ isEditingCart: boolean }> = (props) => {
       ];
     });
   const [currentCartName, setCurrentCartName] = useState(cartTitle);
+  const [disableBtn, setDisableBtn] = useState(true);
+  const disableCart: boolean = cartIsEmpty || !props.isEditingCart;
 
   //   functions
   async function saveCartHandler() {
@@ -51,11 +53,12 @@ const Footer: React.FC<{ isEditingCart: boolean }> = (props) => {
     return "submit";
   }
 
-  const disableCart: boolean = cartIsEmpty || !props.isEditingCart;
-
   const actionStyles = `${styles["input-wrapper"]} ${
     disableCart ? styles["empty-cart"] : ""
   }`;
+
+  const cartName =
+    cartTitle === "New Shopping List" ? "enter a name" : cartTitle;
 
   function generateButton() {
     return (

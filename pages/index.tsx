@@ -24,7 +24,7 @@ const Home: NextPage<ExpectedData> = (props) => {
 
   if (!error) {
     dispatch(itemsActions.initialize(props));
-    dispatch(cartActions.initialize(props.currentCart));
+    // dispatch(cartActions.initialize(props.currentCart));
   }
   let errorMessage = (
     <p className={styles.error}>
@@ -82,5 +82,41 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 1,
   };
 };
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   // const categoriesItemsUrl = API_BASE_URL + "categories-items.json";
+
+//   // const response = await fetch(categoriesItemsUrl);
+//   // const data = await response.json();
+//   // console.log(data);
+
+//   const allItems = await GET_AJAX("all-items");
+//   const allCategories = await GET_AJAX("categories");
+//   const categoriesItems = await GET_AJAX("categories-items-list");
+
+//   let error: boolean;
+
+//   if (
+//     allCategories.success === false ||
+//     allItems.success === false ||
+//     categoriesItems.success === false
+//   ) {
+//     console.log("error occured here");
+//     error = true;
+//   } else {
+//     error = false;
+//   }
+//   console.log("error: ", error);
+
+//   return {
+//     props: {
+//       allItems: allItems.message,
+//       allCategories: allCategories.message,
+//       categoriesItems: categoriesItems.message,
+//       error,
+//     },
+//     revalidate: 1,
+//   };
+// };
 
 export default Home;
