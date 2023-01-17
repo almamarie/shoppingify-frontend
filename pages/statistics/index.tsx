@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Graph, { ExpectedChartData } from "../../components/statistics/Graph";
 import TopCategories, {
   ExpectedTopCategoryFormat,
 } from "../../components/statistics/TopCategories";
@@ -44,15 +45,35 @@ const Home = () => {
     },
   ];
 
+  const monthlySpending: ExpectedChartData = {
+    January: 35,
+    February: 120,
+    March: 35,
+    April: 10,
+    May: 35,
+    June: 45,
+    July: 95,
+    August: 65,
+    September: 22,
+    October: 10,
+    November: 55,
+    December: 200,
+  };
+
   useEffect(() => {
     setIsloading(false);
   }, [setIsloading]);
 
   return (
-    <section className={styles["top-part"]}>
-      <TopItems fetchingData={isloading} data={topItemsData} />
-      <TopCategories fetchingData={isloading} data={topCategoriesData} />
-    </section>
+    <React.Fragment>
+      <section className={styles["top-part"]}>
+        <TopItems fetchingData={isloading} data={topItemsData} />
+        <TopCategories fetchingData={isloading} data={topCategoriesData} />
+      </section>
+      <section>
+        <Graph data={monthlySpending} />
+      </section>
+    </React.Fragment>
   );
 };
 
