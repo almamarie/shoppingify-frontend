@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { AJAX } from "../../public/utils/http";
 import { API_BASE_URL } from "../../public/utils/types";
-import { DUMMY_ITEMS } from "../../store/items";
 
 type Data = {
   success: boolean;
