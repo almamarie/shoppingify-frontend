@@ -1,0 +1,5 @@
+.top-part {
+  display: flex;
+  justify-content: space-between;
+  gap: 6.5rem;
+}

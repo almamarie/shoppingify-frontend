@@ -1,0 +1,26 @@
+.head {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 1.4rem;
+  font-weight: 500;
+
+  margin-bottom: 1.468rem;
+}
+
+.percentage {
+  font-size: 1.8rem;
+}
+
+.bar {
+  width: 100%;
+  height: 0.6rem;
+  border-radius: 4px;
+  background-color: #e0e0e0;
+}
+
+.bar-percentage {
+  height: 100%;
+  background-color: #f9a109;
+  border-radius: 4px;
+}

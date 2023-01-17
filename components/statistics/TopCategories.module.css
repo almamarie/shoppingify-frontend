@@ -1,0 +1,23 @@
+.wrapper {
+  width: 100%;
+  position: relative;
+  height: 24.227 rem;
+}
+
+.header {
+  font-size: 2.4rem;
+  font-weight: 500;
+  margin-bottom: 3.842rem;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
