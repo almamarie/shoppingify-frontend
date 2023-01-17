@@ -64,7 +64,7 @@ const AddNewItem = () => {
 
     console.log(response);
 
-    dispatch(itemsActions.addItem(tmpItem));
+    // dispatch(itemsActions.addItem(tmpItem));
 
     dispatch(detailsPaneActions.setShowing("show current cart"));
   };
