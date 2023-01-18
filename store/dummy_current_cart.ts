@@ -4,6 +4,7 @@ export const DUMMY_CURRENT_CART = [
     items: [
       {
         name: "Avocado",
+        
       },
       {
         name: "Banana",
