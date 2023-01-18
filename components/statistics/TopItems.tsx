@@ -1,4 +1,4 @@
-import LoadingPlaceholder from "./LoadingPlaceHolder";
+import LoadingPlaceholder from "./LoadingPlaceholder";
 import SingleTopItem, { ExpectedSingleTopItemFormat } from "./SingleTopItem";
 import styles from "./TopItems.module.css";
 

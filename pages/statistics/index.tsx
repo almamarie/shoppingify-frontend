@@ -1,5 +1,5 @@
+import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
-import Graph, { ExpectedChartData } from "../../components/statistics/Graph";
 import TopCategories, {
   ExpectedTopCategoryFormat,
 } from "../../components/statistics/TopCategories";
@@ -7,6 +7,10 @@ import TopItems, {
   ExpectedTopItemFormat,
 } from "../../components/statistics/TopItems";
 import styles from "./index.module.css";
+import { ExpectedChartData } from "../../components/statistics/Graph";
+const Graph = dynamic(import("../../components/statistics/Graph"), {
+  ssr: false,
+});
 
 const Home = () => {
   const [isloading, setIsloading] = useState(true);
@@ -45,20 +49,20 @@ const Home = () => {
     },
   ];
 
-  const monthlySpending: ExpectedChartData = {
-    January: 35,
-    February: 120,
-    March: 35,
-    April: 10,
-    May: 35,
-    June: 45,
-    July: 95,
-    August: 65,
-    September: 22,
-    October: 10,
-    November: 55,
-    December: 200,
-  };
+  const monthlySpending: ExpectedChartData = [
+    { name: "January", value: 35 },
+    { name: "February", value: 120 },
+    { name: "March", value: 35 },
+    { name: "April", value: 200 },
+    { name: "May", value: 35 },
+    { name: "June", value: 45 },
+    { name: "July", value: 95 },
+    { name: "August", value: 65 },
+    { name: "September", value: 22 },
+    { name: "October", value: 10 },
+    { name: "November", value: 55 },
+    { name: "December", value: 200 },
+  ];
 
   useEffect(() => {
     setIsloading(false);

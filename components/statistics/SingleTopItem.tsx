@@ -9,7 +9,7 @@ const SingleTopItem: React.FC<{ data: ExpectedSingleTopItemFormat }> = (
   props
 ) => {
   return (
-    <div>
+    <li>
       <div className={styles.head}>
         <span>{props.data.name}</span>
         <span className={styles.percentage}>{`${props.data.percentage}%`}</span>
@@ -20,7 +20,7 @@ const SingleTopItem: React.FC<{ data: ExpectedSingleTopItemFormat }> = (
           style={{ width: `${props.data.percentage}%` }}
         ></div>
       </div>
-    </div>
+    </li>
   );
 };
 
