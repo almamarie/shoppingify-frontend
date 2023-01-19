@@ -1,0 +1,18 @@
+.title {
+  font-size: 2.6rem;
+  font-weight: 700;
+
+  margin-bottom: 4.118rem;
+}
+
+.loader {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+}
+
+.ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5.394rem;
+}

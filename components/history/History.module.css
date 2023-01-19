@@ -1,0 +1,11 @@
+.header {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 1.744rem;
+}
+
+.ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
+}

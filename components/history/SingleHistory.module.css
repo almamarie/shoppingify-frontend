@@ -1,0 +1,51 @@
+.wrapper {
+  padding: 2.197rem 2.69rem;
+  background-color: #fff;
+  border-radius: 1.2rem;
+
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.05);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper:hover {
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.heading {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  gap: 3.408rem;
+  align-items: center;
+}
+
+.date {
+  display: flex;
+  color: #c1c1c4;
+  gap: 1.3rem;
+  align-items: center;
+
+  font-size: 1.2rem;
+}
+
+.status {
+  font-size: 1.2;
+  font-weight: 500;
+  color: #56ccf2;
+
+  padding: 0.426rem 0.783rem;
+
+  border-radius: 0.8rem;
+  border: 1px solid #56ccf2;
+}
+
+.canceled {
+  border-color: #eb5757;
+  color: #eb5757;
+}

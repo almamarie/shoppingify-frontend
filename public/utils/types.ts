@@ -23,3 +23,23 @@ export type DetailsPaneSliceType = {
   cartId: string;
   itemId: string;
 };
+
+export type HistoryType = {
+  title: string;
+  data: HistoryCategoryType[];
+}[];
+
+export type HistoryCategoryType = {
+  name: string;
+  date: string;
+  status: string;
+  items: SingleHistoryType[];
+};
+
+export type SingleHistoryType = {
+  categoryName: string;
+  items: {
+    name: string;
+    quantity: number;
+  }[];
+};
