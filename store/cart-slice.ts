@@ -44,7 +44,6 @@ type InitialState = {
 const initialState: InitialState = {
   items: [],
   totalQuantity: 0,
-  // cartId: "001",
   cartTitle: "New Shopping List",
   cartState: "in progress",
   isEditingCart: true,

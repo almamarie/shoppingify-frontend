@@ -36,3 +36,17 @@
 .empty-cart {
   border-color: #c1c1c4;
 }
+
+.wrapper {
+  position: relative;
+}
+
+.complete-wrapper {
+  display: flex;
+  gap: 2rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  margin-top: 4rem;
+}
