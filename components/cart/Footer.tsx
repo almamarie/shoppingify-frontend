@@ -14,12 +14,15 @@ const Footer: React.FC<{ isEditingCart: boolean }> = (props) => {
         state.cart.cartTitle,
         state.cart.totalQuantity,
         state.cart.cartState,
-
         state.cart.items,
+
+        // items: [],
+        // totalQuantity: 0,
+        // cartTitle: "New Shopping List",
+        // cartState: "in progress"  ,
       ];
     });
   const [currentCartName, setCurrentCartName] = useState(cartTitle);
-  const [disableBtn, setDisableBtn] = useState(true);
   const disableCart: boolean = cartIsEmpty || !props.isEditingCart;
 
   //   functions
@@ -77,6 +80,34 @@ const Footer: React.FC<{ isEditingCart: boolean }> = (props) => {
       </Fragment>
     );
   }
+
+  const cartActionHandler = () => {
+    // items: [],
+    // totalQuantity: 0,
+    // cartTitle: "New Shopping List",
+    // cartState: "in progress"  ,
+  };
+
+  if (!props.isEditingCart) {
+    return (
+      <div className={styles["wrapper"]}>
+        <div className={styles["complete-wrapper"]}>
+          <div className={styles.cancel}>
+            <Button type="button" category="cancel">
+              cancel
+            </Button>
+          </div>
+
+          <div className={styles.complete} onClick={cartActionHandler}>
+            <Button type="button" category="complete">
+              Complete
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.actions}>
       <div className={actionStyles}>{generateButton()}</div>
