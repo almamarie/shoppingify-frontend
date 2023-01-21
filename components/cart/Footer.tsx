@@ -93,7 +93,7 @@ const Footer: React.FC<{ isEditingCart: boolean }> = (props) => {
     console.log(response);
 
     // clear the cart
-    cartActions.clearCart();
+    dispatch(cartActions.clearCart());
   };
 
   const cartCancelHandler = async () => {
