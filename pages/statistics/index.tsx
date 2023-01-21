@@ -11,6 +11,7 @@ import { ExpectedChartData } from "../../components/statistics/Graph";
 import { GetStaticProps, NextPage } from "next";
 import { GET_AJAX } from "../../public/utils/http";
 import { generateTopItems } from "../../public/utils/statistics/generate-top-items";
+import { generateTopCategories } from "../../public/utils/statistics/generate-top-categories";
 const Graph = dynamic(import("../../components/statistics/Graph"), {
   ssr: false,
 });
@@ -24,42 +25,6 @@ type ExpectedData = {
 
 const Home: NextPage<ExpectedData> = (props) => {
   const [isloading, setIsloading] = useState(true);
-
-  console.log("Props: ", props);
-
-  const topItemsData: ExpectedTopItemFormat = [
-    {
-      name: "Banana",
-      percentage: 50,
-    },
-
-    {
-      name: "Rice",
-      percentage: 20,
-    },
-
-    {
-      name: "Chicken 1kg",
-      percentage: 8,
-    },
-  ];
-
-  const topCategoriesData: ExpectedTopCategoryFormat = [
-    {
-      name: "Fruits and vegetables",
-      percentage: 23,
-    },
-
-    {
-      name: "Meat and Fish",
-      percentage: 14,
-    },
-
-    {
-      name: "Pets",
-      percentage: 11,
-    },
-  ];
 
   const monthlySpending: ExpectedChartData = [
     { name: "January", value: 35 },
@@ -84,7 +49,10 @@ const Home: NextPage<ExpectedData> = (props) => {
     <React.Fragment>
       <section className={styles["top-part"]}>
         <TopItems fetchingData={isloading} data={props.topItemsData} />
-        <TopCategories fetchingData={isloading} data={topCategoriesData} />
+        <TopCategories
+          fetchingData={isloading}
+          data={props.topCategoriesData}
+        />
       </section>
       <section>
         <Graph data={monthlySpending} />
@@ -106,14 +74,19 @@ export const getStaticProps: GetStaticProps = async () => {
   }
   // generate the "top items" data
   console.log("Current cart: ", currentCart.message);
-  const topItems = generateTopItems(
+  const topItemsData: ExpectedTopItemFormat = generateTopItems(
+    currentCart.message.items,
+    currentCart.message.totalQuantity
+  );
+
+  const topCategoriesData: ExpectedTopCategoryFormat = generateTopCategories(
     currentCart.message.items,
     currentCart.message.totalQuantity
   );
 
   const props: ExpectedData = {
-    topItemsData: topItems,
-    topCategoriesData: [],
+    topItemsData,
+    topCategoriesData,
     monthlySpending: [],
     error,
   };
