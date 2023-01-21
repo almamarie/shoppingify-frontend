@@ -12,7 +12,9 @@ const SingleTopItem: React.FC<{ data: ExpectedSingleTopItemFormat }> = (
     <li>
       <div className={styles.head}>
         <span>{props.data.name}</span>
-        <span className={styles.percentage}>{`${props.data.percentage}%`}</span>
+        <span className={styles.percentage}>{`${Math.floor(
+          props.data.percentage
+        )}%`}</span>
       </div>
       <div className={styles.bar}>
         <div

@@ -8,14 +8,24 @@ import TopItems, {
 } from "../../components/statistics/TopItems";
 import styles from "./index.module.css";
 import { ExpectedChartData } from "../../components/statistics/Graph";
-import { GetStaticProps } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { GET_AJAX } from "../../public/utils/http";
+import { generateTopItems } from "../../public/utils/statistics/generate-top-items";
 const Graph = dynamic(import("../../components/statistics/Graph"), {
   ssr: false,
 });
 
-const Home = () => {
+type ExpectedData = {
+  topItemsData: ExpectedTopItemFormat;
+  topCategoriesData: ExpectedTopCategoryFormat;
+  monthlySpending: ExpectedChartData;
+  error: boolean;
+};
+
+const Home: NextPage<ExpectedData> = (props) => {
   const [isloading, setIsloading] = useState(true);
+
+  console.log("Props: ", props);
 
   const topItemsData: ExpectedTopItemFormat = [
     {
@@ -73,7 +83,7 @@ const Home = () => {
   return (
     <React.Fragment>
       <section className={styles["top-part"]}>
-        <TopItems fetchingData={isloading} data={topItemsData} />
+        <TopItems fetchingData={isloading} data={props.topItemsData} />
         <TopCategories fetchingData={isloading} data={topCategoriesData} />
       </section>
       <section>
@@ -84,11 +94,32 @@ const Home = () => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
+  // initialize the error flag
+  let error = false;
+
   // fetch the current cart data from the backend
   const currentCart = await GET_AJAX("/current-cart");
-  console.log("current cart: ", currentCart.message);
+  // console.log("current cart: ", currentCart.message);
+
+  if (!currentCart.success) {
+    error = true;
+  }
+  // generate the "top items" data
+  console.log("Current cart: ", currentCart.message);
+  const topItems = generateTopItems(
+    currentCart.message.items,
+    currentCart.message.totalQuantity
+  );
+
+  const props: ExpectedData = {
+    topItemsData: topItems,
+    topCategoriesData: [],
+    monthlySpending: [],
+    error,
+  };
+
   return {
-    props: {},
+    props,
     revalidate: 1,
   };
 };
