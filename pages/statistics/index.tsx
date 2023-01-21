@@ -8,6 +8,8 @@ import TopItems, {
 } from "../../components/statistics/TopItems";
 import styles from "./index.module.css";
 import { ExpectedChartData } from "../../components/statistics/Graph";
+import { GetStaticProps } from "next";
+import { GET_AJAX } from "../../public/utils/http";
 const Graph = dynamic(import("../../components/statistics/Graph"), {
   ssr: false,
 });
@@ -79,6 +81,16 @@ const Home = () => {
       </section>
     </React.Fragment>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  // fetch the current cart data from the backend
+  const currentCart = await GET_AJAX("/current-cart");
+  console.log("current cart: ", currentCart.message);
+  return {
+    props: {},
+    revalidate: 1,
+  };
 };
 
 export default Home;
