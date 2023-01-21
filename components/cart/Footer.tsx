@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import { POST_AJAX } from "../../public/utils/http";
 import { updateCart } from "../../public/utils/update-cart";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { cartActions, CurrentCartUploadType } from "../../store/cart-slice";
@@ -15,11 +16,6 @@ const Footer: React.FC<{ isEditingCart: boolean }> = (props) => {
         state.cart.totalQuantity,
         state.cart.cartState,
         state.cart.items,
-
-        // items: [],
-        // totalQuantity: 0,
-        // cartTitle: "New Shopping List",
-        // cartState: "in progress"  ,
       ];
     });
   const [currentCartName, setCurrentCartName] = useState(cartTitle);
@@ -81,24 +77,44 @@ const Footer: React.FC<{ isEditingCart: boolean }> = (props) => {
     );
   }
 
-  const cartActionHandler = () => {
-    // items: [],
-    // totalQuantity: 0,
-    // cartTitle: "New Shopping List",
-    // cartState: "in progress"  ,
+  const cartChangehandler = async (change: string) => {
+    // generate the expected cart history data
+    const cartData = {
+      items,
+      totalQuantity,
+      cartTitle,
+      cartState: change,
+      date: new Date(),
+    };
+
+    // POST the data to the database
+    const response = await POST_AJAX("cart-history", cartData);
+
+    console.log(response);
+
+    // clear the cart
+    cartActions.clearCart();
+  };
+
+  const cartCancelHandler = async () => {
+    cartChangehandler("canceled");
+  };
+
+  const cartCompleteHandler = async () => {
+    cartChangehandler("completed");
   };
 
   if (!props.isEditingCart) {
     return (
       <div className={styles["wrapper"]}>
         <div className={styles["complete-wrapper"]}>
-          <div className={styles.cancel}>
+          <div className={styles.cancel} onClick={cartCancelHandler}>
             <Button type="button" category="cancel">
               cancel
             </Button>
           </div>
 
-          <div className={styles.complete} onClick={cartActionHandler}>
+          <div className={styles.complete} onClick={cartCompleteHandler}>
             <Button type="button" category="complete">
               Complete
             </Button>

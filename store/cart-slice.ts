@@ -33,14 +33,6 @@ type InitialState = {
   isEditingCart: boolean;
 };
 
-// export type CurrentCartUploadType = {
-//   items: CartSliceCategory[];
-//   totalQuantity: number;
-//   cartTitle: string;
-//   cartState: "in progress" | "completed" | "canceled";
-//   isEditingCart: boolean;
-// };
-
 const initialState: InitialState = {
   items: [],
   totalQuantity: 0,
@@ -69,10 +61,15 @@ const cartSlice = createSlice({
       state.cartState = action.payload.cartState;
       state.isEditingCart = action.payload.isEditingCart;
     },
-    // setCartId(state, action) {
-    //   // sets the current cart and the currentShowing flag
-    //   state.cartId = action.payload;
-    // },
+
+    clearCart(state) {
+      console.log("I am here");
+      state.items = [];
+      state.totalQuantity = 0;
+      state.cartTitle = "New Shopping List";
+      state.cartState = "in progress";
+      state.isEditingCart = true;
+    },
 
     addItemToCart(state, action) {
       if (!action.payload.itemId || !action.payload.categoryName) {
