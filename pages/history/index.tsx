@@ -1,6 +1,8 @@
+import { GetStaticProps } from "next";
 import { useEffect, useState } from "react";
 import History from "../../components/history/History";
 import Loader from "../../components/ui/loader/Loader";
+import { GET_AJAX } from "../../public/utils/http";
 import { HistoryType } from "../../public/utils/types";
 import { DUMMY_HISTORY } from "../../store/dummy_history";
 
@@ -22,7 +24,7 @@ function Home() {
 
   function generateHistories() {
     return histories.map((items, index) => {
-      console.log(index);
+      // console.log(index);
       return <History key={index} title={items.title} data={items.data} />;
     });
   }

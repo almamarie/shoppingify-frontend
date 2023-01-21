@@ -8,46 +8,23 @@ import TopItems, {
 } from "../../components/statistics/TopItems";
 import styles from "./index.module.css";
 import { ExpectedChartData } from "../../components/statistics/Graph";
+import { GetStaticProps, NextPage } from "next";
+import { GET_AJAX } from "../../public/utils/http";
+import { generateTopItems } from "../../public/utils/statistics/generate-top-items";
+import { generateTopCategories } from "../../public/utils/statistics/generate-top-categories";
 const Graph = dynamic(import("../../components/statistics/Graph"), {
   ssr: false,
 });
 
-const Home = () => {
+type ExpectedData = {
+  topItemsData: ExpectedTopItemFormat;
+  topCategoriesData: ExpectedTopCategoryFormat;
+  monthlySpending: ExpectedChartData;
+  error: boolean;
+};
+
+const Home: NextPage<ExpectedData> = (props) => {
   const [isloading, setIsloading] = useState(true);
-
-  const topItemsData: ExpectedTopItemFormat = [
-    {
-      name: "Banana",
-      percentage: 50,
-    },
-
-    {
-      name: "Rice",
-      percentage: 20,
-    },
-
-    {
-      name: "Chicken 1kg",
-      percentage: 8,
-    },
-  ];
-
-  const topCategoriesData: ExpectedTopCategoryFormat = [
-    {
-      name: "Fruits and vegetables",
-      percentage: 23,
-    },
-
-    {
-      name: "Meat and Fish",
-      percentage: 14,
-    },
-
-    {
-      name: "Pets",
-      percentage: 11,
-    },
-  ];
 
   const monthlySpending: ExpectedChartData = [
     { name: "January", value: 35 },
@@ -71,14 +48,53 @@ const Home = () => {
   return (
     <React.Fragment>
       <section className={styles["top-part"]}>
-        <TopItems fetchingData={isloading} data={topItemsData} />
-        <TopCategories fetchingData={isloading} data={topCategoriesData} />
+        <TopItems fetchingData={isloading} data={props.topItemsData} />
+        <TopCategories
+          fetchingData={isloading}
+          data={props.topCategoriesData}
+        />
       </section>
       <section>
         <Graph data={monthlySpending} />
       </section>
     </React.Fragment>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  // initialize the error flag
+  let error = false;
+
+  // fetch the current cart data from the backend
+  const currentCart = await GET_AJAX("/current-cart");
+  // console.log("current cart: ", currentCart.message);
+
+  if (!currentCart.success) {
+    error = true;
+  }
+  // generate the "top items" data
+  console.log("Current cart: ", currentCart.message);
+  const topItemsData: ExpectedTopItemFormat = generateTopItems(
+    currentCart.message.items,
+    currentCart.message.totalQuantity
+  );
+
+  const topCategoriesData: ExpectedTopCategoryFormat = generateTopCategories(
+    currentCart.message.items,
+    currentCart.message.totalQuantity
+  );
+
+  const props: ExpectedData = {
+    topItemsData,
+    topCategoriesData,
+    monthlySpending: [],
+    error,
+  };
+
+  return {
+    props,
+    revalidate: 1,
+  };
 };
 
 export default Home;
