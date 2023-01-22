@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { POST_AJAX } from "../../public/utils/http";
+import { POST_AJAX, PUT_AJAX } from "../../public/utils/http";
 import { updateCart } from "../../public/utils/update-cart";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { cartActions, CurrentCartUploadType } from "../../store/cart-slice";
@@ -82,15 +82,30 @@ const Footer: React.FC<{ isEditingCart: boolean }> = (props) => {
     const cartData = {
       items,
       totalQuantity,
-      cartTitle,
+      cartTitle: currentCartName,
       cartState: change,
       date: new Date(),
     };
 
-    // POST the data to the database
-    const response = await POST_AJAX("cart-history", cartData);
+    console.log("Cart title: ", cartTitle);
 
-    console.log(response);
+    // POST the data to the database
+    let response = await POST_AJAX("cart-history", cartData);
+
+    console.log("Post cart history: ", response);
+
+    // clear cart data in database.
+    const clearData = {
+      items: [],
+      totalQuantity: 0,
+      cartTitle: "New Shopping List",
+      cartState: "in progress",
+      isEditingCart: true,
+    };
+
+    response = await PUT_AJAX("current-cart", clearData);
+
+    console.log("Put: ", response);
 
     // clear the cart
     dispatch(cartActions.clearCart());
