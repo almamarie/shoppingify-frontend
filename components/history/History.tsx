@@ -5,7 +5,7 @@ import SingleHistory from "./SingleHistory";
 const History: React.FC<{ title: string; data: HistoryCategoryType[] }> = (
   props
 ) => {
-  console.log(props.data);
+  // console.log(props.data);
   function generateItems() {
     return props.data.map((history, index) => {
       return <SingleHistory key={index} data={history} />;

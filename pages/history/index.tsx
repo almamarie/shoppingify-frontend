@@ -47,4 +47,20 @@ function Home() {
   );
 }
 
+export const getStaticProps: GetStaticProps = async () => {
+  // initialize the error flag.
+  let error = false;
+  let props: HistoryType[] = [];
+
+  // fetch the history from the database
+
+  const history = await GET_AJAX("cart-history");
+  console.log("History: ", JSON.stringify(history.message));
+
+  return {
+    props: { data: props, error },
+    revalidate: 1,
+  };
+};
+
 export default Home;
