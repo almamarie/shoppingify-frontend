@@ -1,21 +1,23 @@
-export const DUMMY_HISTORY = [
+import { HistoryType } from "../public/utils/types";
+
+export const DUMMY_HISTORY: HistoryType = [
   {
     title: "August 2020",
     data: [
       {
-        name: "Grocery List",
+        cartTitle: "Grocery List",
+        cartState: "completed",
         date: "Mon 27.8.2020",
-        status: "completed",
         items: [
           {
             categoryName: "Fruits and vegetables",
             items: [
               {
-                name: "Avocado",
+                itemId: "Avocado",
                 quantity: 4,
               },
               {
-                name: "Banana",
+                itemId: "Banana",
                 quantity: 9,
               },
             ],
@@ -25,12 +27,12 @@ export const DUMMY_HISTORY = [
             categoryName: "Beverages",
             items: [
               {
-                name: "coca-cola",
+                itemId: "coca-cola",
                 quantity: 1,
               },
 
               {
-                name: "malta",
+                itemId: "malta",
                 quantity: 5,
               },
             ],
@@ -39,7 +41,7 @@ export const DUMMY_HISTORY = [
             categoryName: "Pets",
             items: [
               {
-                name: "Salmon 1kg",
+                itemId: "Salmon 1kg",
                 quantity: 1,
               },
             ],
@@ -47,19 +49,19 @@ export const DUMMY_HISTORY = [
         ],
       },
       {
-        name: "Ero's Farewell Party",
+        cartTitle: "Ero's Farewell Party",
+        cartState: "completed",
         date: "Mon 24.8.2020",
-        status: "completed",
         items: [
           {
             categoryName: "Fruits and vegetables",
             items: [
               {
-                name: "Avocado",
+                itemId: "Avocado",
                 quantity: 4,
               },
               {
-                name: "Banana",
+                itemId: "Banana",
                 quantity: 9,
               },
             ],
@@ -69,7 +71,7 @@ export const DUMMY_HISTORY = [
             categoryName: "Pets",
             items: [
               {
-                name: "Salmon 1kg",
+                itemId: "Salmon 1kg",
                 quantity: 3,
               },
             ],
@@ -82,19 +84,19 @@ export const DUMMY_HISTORY = [
     title: "July 2020",
     data: [
       {
-        name: "Board Game Week 2",
+        cartTitle: "Board Game Week 2",
+        cartState: "completed",
         date: "Mon 27.7.2020",
-        status: "completed",
         items: [
           {
             categoryName: "Fruits and vegetables",
             items: [
               {
-                name: "Avocado",
+                itemId: "Avocado",
                 quantity: 4,
               },
               {
-                name: "Banana",
+                itemId: "Banana",
                 quantity: 9,
               },
             ],
@@ -104,12 +106,12 @@ export const DUMMY_HISTORY = [
             categoryName: "Beverages",
             items: [
               {
-                name: "coca-cola",
+                itemId: "coca-cola",
                 quantity: 1,
               },
 
               {
-                name: "malta",
+                itemId: "malta",
                 quantity: 5,
               },
             ],
@@ -118,7 +120,7 @@ export const DUMMY_HISTORY = [
             categoryName: "Pets",
             items: [
               {
-                name: "Salmon 1kg",
+                itemId: "Salmon 1kg",
                 quantity: 2,
               },
             ],
@@ -126,19 +128,19 @@ export const DUMMY_HISTORY = [
         ],
       },
       {
-        name: "Grocery List",
+        cartTitle: "Grocery List",
+        cartState: "canceled",
         date: "Mon 16.7.2020",
-        status: "canceled",
         items: [
           {
             categoryName: "Fruits and vegetables",
             items: [
               {
-                name: "Avocado",
+                itemId: "Avocado",
                 quantity: 4,
               },
               {
-                name: "Banana",
+                itemId: "Banana",
                 quantity: 9,
               },
             ],
@@ -148,7 +150,7 @@ export const DUMMY_HISTORY = [
             categoryName: "Pets",
             items: [
               {
-                name: "Salmon 1kg",
+                itemId: "Salmon 1kg",
                 quantity: 7,
               },
             ],

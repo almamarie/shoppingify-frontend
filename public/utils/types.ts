@@ -30,16 +30,16 @@ export type HistoryType = {
 }[];
 
 export type HistoryCategoryType = {
-  name: string;
+  cartTitle: string;
   date: string;
-  status: string;
+  cartState: string;
   items: SingleHistoryType[];
 };
 
 export type SingleHistoryType = {
   categoryName: string;
   items: {
-    name: string;
+    itemId: string;
     quantity: number;
   }[];
 };

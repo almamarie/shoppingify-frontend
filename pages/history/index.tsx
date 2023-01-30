@@ -4,7 +4,10 @@ import History from "../../components/history/History";
 import Loader from "../../components/ui/loader/Loader";
 import { GET_AJAX } from "../../public/utils/http";
 import { HistoryType } from "../../public/utils/types";
-import { DUMMY_HISTORY } from "../../store/dummy_history";
+import {
+  DUMMY_HISTORY,
+  HISTORY_FROM_DATABASE,
+} from "../../store/dummy_history";
 
 import styles from "./index.module.css";
 
@@ -54,8 +57,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // fetch the history from the database
 
-  const history = await GET_AJAX("cart-history");
-  console.log("History: ", JSON.stringify(history.message));
+  // const history = await GET_AJAX("cart-history");
+  // console.log("History: ", JSON.stringify(history.message));
+  const history = HISTORY_FROM_DATABASE;
 
   return {
     props: { data: props, error },
