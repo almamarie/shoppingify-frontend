@@ -27,7 +27,7 @@ export type DetailsPaneSliceType = {
 export type HistoryType = {
   title: string;
   data: HistoryCategoryType[];
-}[];
+};
 
 export type HistoryCategoryType = {
   cartTitle: string;

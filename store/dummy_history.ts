@@ -1,6 +1,6 @@
 import { HistoryType } from "../public/utils/types";
 
-export const DUMMY_HISTORY: HistoryType = [
+export const DUMMY_HISTORY: HistoryType[] = [
   {
     title: "August 2020",
     data: [
@@ -217,7 +217,7 @@ export const HISTORY_FROM_DATABASE = {
   "-NMPlLO7haX8_U06F_Cj": {
     cartState: "canceled",
     cartTitle: "Woody's homecoming",
-    date: "2023-01-22T18:37:27.713Z",
+    date: "2023-03-22T18:37:27.713Z",
     items: [
       {
         categoryName: "Fruits and vegetables",
@@ -237,7 +237,7 @@ export const HISTORY_FROM_DATABASE = {
   "-NMPl_VhlzqPGzpqONBV": {
     cartState: "completed",
     cartTitle: "New Shopping List",
-    date: "2023-01-22T18:38:29.633Z",
+    date: "2023-07-22T18:38:29.633Z",
     items: [
       {
         categoryName: "Fruits and vegetables",
@@ -255,7 +255,7 @@ export const HISTORY_FROM_DATABASE = {
   "-NMPllMqnofG3L446B-o": {
     cartState: "completed",
     cartTitle: "Wonyo",
-    date: "2023-01-22T18:39:18.223Z",
+    date: "2022-07-22T18:39:18.223Z",
     items: [
       {
         categoryName: "Beverages",
@@ -278,7 +278,7 @@ export const HISTORY_FROM_DATABASE = {
   "-NMPlowCOUC_FoI4C89r": {
     cartState: "canceled",
     cartTitle: "Name",
-    date: "2023-01-22T18:39:32.838Z",
+    date: "2023-11-22T18:39:32.838Z",
     items: [
       {
         categoryName: "Meat and Fish",

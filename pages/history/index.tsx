@@ -1,7 +1,9 @@
-import { GetStaticProps } from "next";
+import { GetStaticProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 import History from "../../components/history/History";
+import DataFetchError from "../../components/ui/data-fetch-error/DataFetchErrorSmall";
 import Loader from "../../components/ui/loader/Loader";
+import { groupByDate } from "../../public/utils/history/group-by-date";
 import { GET_AJAX } from "../../public/utils/http";
 import { HistoryType } from "../../public/utils/types";
 import {
@@ -11,58 +13,62 @@ import {
 
 import styles from "./index.module.css";
 
-function Home() {
-  // TODO: try to save the carts history by date so they are easier to retrieve
-  const [isLoading, setIsLoading] = useState(true);
-  const [histories, setHistories] = useState<HistoryType>([]);
-  useEffect(() => {
-    // TODO: Fetch data
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setHistories(DUMMY_HISTORY);
-      setIsLoading(false);
-    }, 500);
-  }, []);
+type ExpectedData = {
+  data: HistoryType[];
+  error: boolean;
+};
+const Home: NextPage<ExpectedData> = (props) => {
+  // console.log(props.data);
 
   function generateHistories() {
-    return histories.map((items, index) => {
-      // console.log(index);
+    return props.data.map((items, index) => {
       return <History key={index} title={items.title} data={items.data} />;
     });
   }
 
-  if (isLoading) {
+  if (props.error) {
     return (
-      <section>
-        <h1 className={styles.title}>Shopping History</h1>
-        <div className={styles.loader}>
-          <Loader />
-        </div>
-      </section>
+      <div className={styles["centered-text"]}>
+        <DataFetchError />
+      </div>
     );
   }
+
+  // if (isLoading) {
+  //   return (
+  //     <section>
+  //       <h1 className={styles.title}>Shopping History</h1>
+  //       <div className={styles.loader}>
+  //         <Loader />
+  //       </div>
+  //     </section>
+  //   );
+  // }
+
   return (
     <section>
       <h1 className={styles.title}>Shopping History</h1>
       <ul className={styles.ul}>{generateHistories()}</ul>
     </section>
   );
-}
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   // initialize the error flag.
   let error = false;
-  let props: HistoryType[] = [];
+  let data: HistoryType[] = [];
 
   // fetch the history from the database
-
-  // const history = await GET_AJAX("cart-history");
-  // console.log("History: ", JSON.stringify(history.message));
-  const history = HISTORY_FROM_DATABASE;
+  try {
+    const history = await GET_AJAX("cart-history");
+    console.log(history.message);
+    data = groupByDate();
+  } catch (error) {
+    error = true;
+  }
 
   return {
-    props: { data: props, error },
+    props: { data, error },
     revalidate: 1,
   };
 };

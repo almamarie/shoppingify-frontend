@@ -16,3 +16,12 @@
   flex-direction: column;
   gap: 5.394rem;
 }
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  text-align: center;
+  color: red;
+}
