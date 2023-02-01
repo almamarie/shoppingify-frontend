@@ -16,6 +16,10 @@ export const generateTopCategories = (
   items: ExpectedDataType,
   totalQuantity: number
 ) => {
+  if (!items || items.length <= 0 || totalQuantity <= 0) {
+    return [];
+  }
+
   //   create a variable to store the categories and their total quantities
   let categoriesWithPercentages: { name: string; percentage: number }[] = [];
 
