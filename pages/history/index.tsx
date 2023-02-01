@@ -1,16 +1,12 @@
 import { GetStaticProps, NextPage } from "next";
-import { useEffect, useState } from "react";
 import History from "../../components/history/History";
+import ChangeTab from "../../components/ui/control-navigation/ChangeTab";
 import DataFetchError from "../../components/ui/data-fetch-error/DataFetchErrorSmall";
-import Loader from "../../components/ui/loader/Loader";
 import { groupByDate } from "../../public/utils/history/group-by-date";
 import { GET_AJAX } from "../../public/utils/http";
 import { HistoryType } from "../../public/utils/types";
-import {
-  DUMMY_HISTORY,
-  HISTORY_FROM_DATABASE,
-} from "../../store/dummy_history";
-
+import { useAppDispatch } from "../../store";
+import { uiActions } from "../../store/ui-slice";
 import styles from "./index.module.css";
 
 type ExpectedData = {
@@ -18,7 +14,9 @@ type ExpectedData = {
   error: boolean;
 };
 const Home: NextPage<ExpectedData> = (props) => {
-  // console.log(props.data);
+  // set the current tab
+  const dispatch = useAppDispatch();
+  dispatch(uiActions.setCurrentTab("history"));
 
   function generateHistories() {
     return props.data.map((items, index) => {

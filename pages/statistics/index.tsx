@@ -12,6 +12,7 @@ import { GetStaticProps, NextPage } from "next";
 import { GET_AJAX } from "../../public/utils/http";
 import { generateTopItems } from "../../public/utils/statistics/generate-top-items";
 import { generateTopCategories } from "../../public/utils/statistics/generate-top-categories";
+import ChangeTab from "../../components/ui/control-navigation/ChangeTab";
 const Graph = dynamic(import("../../components/statistics/Graph"), {
   ssr: false,
 });
@@ -47,7 +48,10 @@ const Home: NextPage<ExpectedData> = (props) => {
 
   return (
     <React.Fragment>
+      {/* change the current tab to statistics */}
+
       <section className={styles["top-part"]}>
+        <ChangeTab tab="statistics" />
         <TopItems fetchingData={isloading} data={props.topItemsData} />
         <TopCategories
           fetchingData={isloading}

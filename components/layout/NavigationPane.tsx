@@ -4,8 +4,11 @@ import logo from "../../public/resources/logo.svg";
 import styles from "./NavigationPane.module.css";
 import listBullet from "../../public/svgs/list-bullet.svg";
 import CartIcon from "../cart/CartIcon";
+import { useAppSelector } from "../../store";
 
 const NavigationPane: React.FC<{ className: React.ReactNode }> = () => {
+  const currentTab = useAppSelector((state) => state.ui.currentTab);
+  console.log("Current Tab: ", currentTab);
   return (
     <div className={styles.wrapper}>
       <div className={styles.ele}>
