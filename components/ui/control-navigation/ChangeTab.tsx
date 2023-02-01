@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useAppDispatch } from "../../../store";
 import { uiActions } from "../../../store/ui-slice";
 
@@ -9,7 +10,9 @@ const ChangeTab: React.FC<{
   // React Hook "useAppDispatch" cannot be called at the top level. React Hooks must be called in a React function component or a custom React Hook function
   // This helper function helps address that error.
   const dispatch = useAppDispatch();
-  dispatch(uiActions.setCurrentTab(props.tab));
+  useEffect(() => {
+    dispatch(uiActions.setCurrentTab(props.tab));
+  });
   return <p></p>;
 };
 

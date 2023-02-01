@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/all-items/Header";
 import { GET_AJAX } from "../public/utils/http";
 import { itemsActions, ItemsType } from "../store/items-slice";
@@ -8,7 +8,7 @@ import styles from "./Index.module.css";
 import AllItems from "../components/all-items/AllItems";
 import { useAppDispatch } from "../store";
 import { groupItems } from "../public/utils/group-items";
-import { cartActions } from "../store/cart-slice";
+import { uiActions } from "../store/ui-slice";
 
 type ExpectedData = {
   items: ItemsType[];
@@ -22,9 +22,12 @@ const Home: NextPage<ExpectedData> = (props) => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState(props.error);
 
+  useEffect(() => {
+    dispatch(uiActions.setCurrentTab("items"));
+  }, [dispatch]);
+
   if (!error) {
     dispatch(itemsActions.initialize(props));
-    // dispatch(cartActions.initialize(props.currentCart));
   }
   let errorMessage = (
     <p className={styles.error}>

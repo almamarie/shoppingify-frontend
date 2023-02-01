@@ -1,4 +1,5 @@
 import { GetStaticProps, NextPage } from "next";
+import { useEffect } from "react";
 import History from "../../components/history/History";
 import ChangeTab from "../../components/ui/control-navigation/ChangeTab";
 import DataFetchError from "../../components/ui/data-fetch-error/DataFetchErrorSmall";
@@ -16,7 +17,10 @@ type ExpectedData = {
 const Home: NextPage<ExpectedData> = (props) => {
   // set the current tab
   const dispatch = useAppDispatch();
-  dispatch(uiActions.setCurrentTab("history"));
+
+  useEffect(() => {
+    dispatch(uiActions.setCurrentTab("history"));
+  }, [dispatch]);
 
   function generateHistories() {
     return props.data.map((items, index) => {
